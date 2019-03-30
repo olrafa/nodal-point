@@ -65,8 +65,7 @@ def scoreboard():
             print(p1s1, "|", p1s2, "|", player1.name)
             print(p2s1, "|", p2s2, "|", player2.name)
     elif service_change == 0:
-        print(pointsystem[player1.points], "|", player1.initials)
-        print(pointsystem[player2.points], "|", player2.initials)
+        scoreboardGame()
     elif set_number == 0:
         print(player1.games, "|", pointsystem[player1.points], "|", player1.initials)
         print(player2.games, "|", pointsystem[player2.points], "|", player2.initials)
@@ -77,11 +76,17 @@ def scoreboard():
         print(p1s1, "|", p1s2, "|", player1.games, "|", pointsystem[player1.points], "|", player1.initials)
         print(p2s1, "|", p2s2, "|", player2.games, "|", pointsystem[player2.points], "|", player2.initials)
 
+def scoreboardGame():
+    print(pointsystem[player1.points], "|", player1.initials)
+    print(pointsystem[player2.points], "|", player2.initials)
+
 pointsystem = [0, 15, 30, 40, "A"]
 set_order = ["first", "second", "third"]
 set_number = 0
 game_number = 1
 service_change = 0
+matchWinningPoints = 3;
+deucePointNumber = 3;
 
 print("Welcome to Rafael's tennis")
 
@@ -91,6 +96,9 @@ tennis3 = Player('Bertens', 8)
 tennis4 = Player('Williams', 10)
 
 participants = [tennis1, tennis2, tennis3, tennis4]
+
+def sortPlayers():
+    # TODO: Sort players by rank_edge to start a new match
 
 match = True
 
@@ -139,8 +147,8 @@ while match:
     elif player2.points > 3 and (player2.points - player1.points) == 1:
         print("Advantage", player2.name)
     elif player1.points > 3 and player2.points == player1.points:
-        player1.points = 3
-        player2.points = 3
+        player1.points = deucePointNumber
+        player2.points = deucePointNumber
         print("Deuce")
 
     scoreboard()
