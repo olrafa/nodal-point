@@ -88,10 +88,10 @@ service_change = 0
 
 print("Welcome to Rafael's tennis")
 
-tennis1 = Player('Osaka', 1)
-tennis2 = Player('Svitolina', 5)
-tennis3 = Player('Bertens', 8)
-tennis4 = Player('Williams', 10)
+tennis1 = Player('Osaka', 2)
+tennis2 = Player('Svitolina', 8)
+tennis3 = Player('Bertens', 4)
+tennis4 = Player('S Williams', 10)
 
 participants = [tennis1, tennis2, tennis3, tennis4]
 
