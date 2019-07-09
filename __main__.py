@@ -129,6 +129,9 @@ while match:
 
     play_point()
 
+    gameLeaderPoints = max(player1.points, player2.points)
+    gameLosingPoint = min(player1.points, player2.points)
+
     if (player1.points > 3 and (player1.points - player2.points) >= 2):
         player1.win_game()
         game_number += 1
