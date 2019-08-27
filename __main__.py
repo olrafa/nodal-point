@@ -13,7 +13,7 @@ class Player:
 
     def win_point(self):
         self.points += 1
-        print(self.name, 'gets point')
+        print(self.name, 'gets the point')
 
     def win_game(self):
         self.games += 1
