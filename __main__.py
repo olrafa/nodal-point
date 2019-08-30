@@ -29,7 +29,7 @@ class Player:
         print(self.name, 'wins', set_order[set_number], 'set')
 
     def set_handicap(self):
-        if self.rank_edge < -8:
+        if self.rank_edge < -9:
             self.rank_edge = -9
         elif self.rank_edge > 20:
             self.rank_edge = 20
