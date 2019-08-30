@@ -17,7 +17,7 @@ class Player:
 
     def win_game(self):
         self.games += 1
-        print(self.name, 'wins game')
+        print(self.name, 'wins this game')
         next_game()
 
     def upd_service(self):
