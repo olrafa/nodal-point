@@ -1,13 +1,20 @@
 import { MAX_ADVANTAGE, MIN_ADVANTAGE, SERVING_ADVANTAGE } from "./constants";
 import { Match, Player, PlayerScore } from "./types";
 
-const createMatch = (playerOne: Player, playerTwo: Player): Match => ({
-  p1: initializePlayer(playerOne, playerTwo),
-  p2: initializePlayer(playerTwo, playerOne),
-  set: 0,
-  game: 0,
-  ongoing: false,
-});
+const createMatch = (playerOne: Player, playerTwo: Player): Match => {
+  const player1 = initializePlayer(playerOne, playerTwo);
+  const player2 = initializePlayer(playerTwo, playerOne);
+
+  return {
+    p1: player1,
+    p2: player2,
+    set: 0,
+    game: 0,
+    ongoing: false,
+    serving: player1,
+    receiving: player2,
+  };
+};
 
 const initializePlayer = (player: Player, opponent: Player): PlayerScore => ({
   ...player,
