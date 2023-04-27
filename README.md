@@ -1,12 +1,20 @@
-# tennis
+# Tennis simulator
 
-This was my first attempt at programming at all, the language of choice was Python 3.
+This was my first attempt at programming at all back in 2019, the language of choice then was Python 3. In 2023 I'm moving it to Node+TypeScript, just for fun.
 
-It's a kind of tennis game simulator, to run from the terminal (cd tennis -> python 3 .), but users only wait for the outcome of each point.
+It's a kind of tennis game simulator to run from the terminal, but users only watch the outcome of each point.
 
-The idea is inspired in a TV broadcast of a tennis match and also in the vintage football game Elifoot.
+The idea is inspired in the vintage football game Elifoot.
 
-The name and ranking of players are hard coded, based on WTA' Rankings as of July 2nd, 2019. Four players from the Top 10 were randomly chosen, in order to test the algorithm for players possibilities of winning each point, depending on service and general ranking.
+The name and ranking of players are hard coded, based on WTA Rankings as of April 24th, 2023. We pick any random 2 out of the top 16 to play.
 
-It is a WIP, so the next steps are to make the code cleaner (less hard coded), and make it have not only a match but possibly be a small tournament.
+## Run the project
 
+The is no production build or anything like that. It's just set for a local development environment.
+
+```
+git clone git@github.com:olrafa/tennis-simulator.git
+npm install
+```
+
+then, start a game with `npm run start:dev`
