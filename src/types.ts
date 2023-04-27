@@ -18,7 +18,6 @@ export type Match = {
   p1: PlayerScore;
   p2: PlayerScore;
   set: number;
-  game: number;
   ongoing: boolean;
   serving: PlayerScore;
   receiving: PlayerScore;

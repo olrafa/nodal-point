@@ -6,7 +6,8 @@ export const getRandomPlayers = () =>
   [...PLAYERS].sort(() => 0.5 - Math.random()).slice(0, 2);
 
 export const updateService = (match: Match): void => {
-  const isFirstGameInMatch = match.game === 1 && match.set === 1;
+  const isFirstGameInMatch =
+    !match.p1.games && !match.p2.games && match.set === 1;
   match.serving = isFirstGameInMatch ? selectServer(match) : switchServe(match);
   match.receiving = match.serving === match.p1 ? match.p2 : match.p1;
 };

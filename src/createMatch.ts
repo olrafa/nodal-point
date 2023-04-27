@@ -9,7 +9,6 @@ const createMatch = (playerOne: Player, playerTwo: Player): Match => {
     p1: player1,
     p2: player2,
     set: 0,
-    game: 0,
     ongoing: false,
     serving: player1,
     receiving: player2,
@@ -29,7 +28,7 @@ const initializePlayer = (player: Player, opponent: Player): PlayerScore => ({
 
 // How much we will favor the serving player
 const createServingEdge = (player: Player, opponent: Player): number => {
-  const difference = player.ranking - opponent.ranking;
+  const difference = Math.floor((player.ranking - opponent.ranking) / 2);
   const servingEdge = SERVING_ADVANTAGE - difference;
   if (servingEdge > MAX_ADVANTAGE) {
     return MAX_ADVANTAGE;

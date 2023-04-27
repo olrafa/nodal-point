@@ -1,4 +1,5 @@
-import { MIN_GAMES_FOR_SET, POINT_SYSTEM } from "./constants";
+import { MIN_GAMES_FOR_SET } from "./constants";
+import { printScoreBoard } from "./printScoreboard";
 import {
   getGameWinner,
   getMatchWinner,
@@ -23,7 +24,6 @@ const playSet = (match: Match): void => {
 };
 
 const playGame = (match: Match) => {
-  match.game++;
   match.p1.points = 0;
   match.p2.points = 0;
   updateService(match);
@@ -46,8 +46,8 @@ const playPoint = (match: Match, isTieBreak = false): void => {
     finishGame(match);
   } else {
     // keep playing points until game is finished.
-    updateScore(match);
-    setTimeout(() => playPoint(match), 1000);
+    updateScore(match, isTieBreak);
+    setTimeout(() => playPoint(match, isTieBreak), 1500);
   }
 };
 
@@ -59,8 +59,7 @@ const finishGame = (match: Match): void => {
   if (isSetOver(match.p1.games, match.p2.games)) {
     finishSet(match);
   } else {
-    updateScore(match);
-    setTimeout(() => playGame(match), 1000);
+    setTimeout(() => playGame(match), 1500);
   }
 };
 
@@ -74,37 +73,35 @@ const finishSet = (match: Match): void => {
   if (isMatchOver(match.p1.sets, match.p2.sets)) {
     finishMatch(match);
   } else {
-    setTimeout(() => playSet(match), 1000);
+    setTimeout(() => playSet(match), 1500);
   }
 };
 
 const finishMatch = (match: Match) => {
   match.ongoing = false;
   match.winner = getMatchWinner(match.p1, match.p2);
-  updateScore(match);
   console.log(`${match.winner?.firstName} ${match.winner?.lastName} wins!`);
+  printScoreBoard(match);
 };
 
-const updateScore = (match: Match) => {
-  const { p1, p2 } = match;
-  updateDeuce(match);
-
-  console.log(p1.lastName, p1.sets, p1.games, POINT_SYSTEM[p1.points]);
-  console.log(p2.lastName, p2.sets, p2.games, POINT_SYSTEM[p2.points]);
+const updateScore = (match: Match, isTieBreak: boolean) => {
+  !isTieBreak && updateDeuce(match);
+  printScoreBoard(match, isTieBreak);
   console.log("\n");
 };
 
 const updateSetScores = (match: Match) => {
-  switch (match.set) {
-    case 1:
-      match.p1.gamesS1 = match.p1.games;
-      match.p2.gamesS1 = match.p2.games;
-    case 2:
-      match.p1.gamesS2 = match.p1.games;
-      match.p2.gamesS2 = match.p2.games;
-    case 3:
-      match.p1.gamesS3 = match.p1.games;
-      match.p2.gamesS3 = match.p2.games;
+  if (match.set === 1) {
+    match.p1.gamesS1 = match.p1.games;
+    match.p2.gamesS1 = match.p2.games;
+  }
+  if (match.set === 2) {
+    match.p1.gamesS2 = match.p1.games;
+    match.p2.gamesS2 = match.p2.games;
+  }
+  if (match.set === 3) {
+    match.p1.gamesS3 = match.p1.games;
+    match.p2.gamesS3 = match.p2.games;
   }
 };
 
@@ -112,7 +109,6 @@ const updateDeuce = ({ p1, p2 }: Match) => {
   if (p1.points > 3 && p2.points > 3) {
     p1.points = 3;
     p2.points = 3;
-    console.log("Deuce");
   }
 };
 
