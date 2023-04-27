@@ -7,6 +7,9 @@ export type Player = {
 export type PlayerScore = Player & {
   sets: number;
   games: number;
+  gamesS1: number;
+  gamesS2: number;
+  gamesS3: number;
   points: number;
   servingEdge: number; // how much the algorithm will favor the player when she's serving, based on the rank of both player and opponent.
 };

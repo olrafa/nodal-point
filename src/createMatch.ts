@@ -22,6 +22,9 @@ const initializePlayer = (player: Player, opponent: Player): PlayerScore => ({
   games: 0,
   points: 0,
   servingEdge: createServingEdge(player, opponent),
+  gamesS1: 0,
+  gamesS2: 0,
+  gamesS3: 0,
 });
 
 // How much we will favor the serving player

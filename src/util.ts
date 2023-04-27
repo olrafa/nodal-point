@@ -1,10 +1,15 @@
 import PLAYERS from "./players";
-import { Match, Player, PlayerScore } from "./types";
+import { Match, PlayerScore } from "./types";
 
 // create a game between two random players;
-// https://stackoverflow.com/questions/19269545/how-to-get-a-number-of-random-elements-from-an-array
 export const getRandomPlayers = () =>
   [...PLAYERS].sort(() => 0.5 - Math.random()).slice(0, 2);
+
+export const updateService = (match: Match): void => {
+  const isFirstGameInMatch = match.game === 1 && match.set === 1;
+  match.serving = isFirstGameInMatch ? selectServer(match) : switchServe(match);
+  match.receiving = match.serving === match.p1 ? match.p2 : match.p1;
+};
 
 // select a random server to start the game;
 export const selectServer = (match: Match): PlayerScore => {
