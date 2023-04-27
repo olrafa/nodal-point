@@ -6,15 +6,18 @@ It's a kind of tennis game simulator to run from the terminal, but users only wa
 
 The idea is inspired in the vintage football game Elifoot.
 
-The name and ranking of players are hard coded, based on WTA Rankings as of April 24th, 2023. We pick any random 2 out of the top 16 to play.
+The name and ranking of players are hard coded, based on WTA Rankings as of April 24th, 2023. We pick any random two out of the top 16 to play.
 
 ## Run the project
 
-The is no production build or anything like that. It's just set for a local development environment.
+The is no production build or anything like that. It's just set for a local development environment. So, you need to have Node installed.
+
+Then, run:
 
 ```
 git clone git@github.com:olrafa/tennis-simulator.git
+cd tennis-simulator
 npm install
 ```
 
-then, start a game with `npm run start:dev`
+Start a game with `npm run start:dev`. Which is actually run the project on Nodemon.
