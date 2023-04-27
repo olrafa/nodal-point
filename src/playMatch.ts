@@ -1,6 +1,7 @@
-import { match } from "assert";
+import { MIN_GAMES_FOR_SET } from "./constants";
 import {
   getGameWinner,
+  getMatchWinner,
   getSetWinner,
   isGameOver,
   isMatchOver,
@@ -10,9 +11,8 @@ import { Match } from "./types";
 import { selectServer, switchServe } from "./util";
 
 const playMatch = (match: Match): void => {
-  match.game = 1;
   match.ongoing = true;
-  playGame(match);
+  playSet(match);
 };
 
 const playSet = (match: Match): void => {
@@ -29,10 +29,13 @@ const playGame = (match: Match) => {
   const isFirstGameInMatch = match.game === 1 && match.set === 1;
   match.serving = isFirstGameInMatch ? selectServer(match) : switchServe(match);
   match.receiving = match.serving === match.p1 ? match.p2 : match.p1;
-  playPoints(match);
+  const isTieBreak =
+    match.p1.games === MIN_GAMES_FOR_SET &&
+    match.p2.games === MIN_GAMES_FOR_SET;
+  playPoints(match, isTieBreak);
 };
 
-const playPoints = (match: Match): void => {
+const playPoints = (match: Match, isTieBreak = false): void => {
   const { serving, receiving } = match;
   // select a number between 1 and 100.
   const randomNumber = Math.floor(Math.random() * 100) + 1;
@@ -41,7 +44,7 @@ const playPoints = (match: Match): void => {
   // keep playing points until game is finished.
   setTimeout(
     () =>
-      isGameOver(serving.points, receiving.points)
+      isGameOver(serving.points, receiving.points, isTieBreak)
         ? finishGame(match)
         : playPoints(match),
     500
@@ -70,7 +73,8 @@ const finishSet = (match: Match): void => {
 
 const finishMatch = (match: Match) => {
   match.ongoing = false;
+  match.winner = getMatchWinner(match.p1, match.p2);
   console.log(match);
-}
+};
 
 export default playMatch;

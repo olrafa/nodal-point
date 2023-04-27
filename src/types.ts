@@ -19,4 +19,5 @@ export type Match = {
   ongoing: boolean;
   serving: PlayerScore;
   receiving: PlayerScore;
+  winner?: Player;
 };

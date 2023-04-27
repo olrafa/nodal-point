@@ -17,3 +17,6 @@ export const MIN_POINT_DIFFERENCE = 2;
 export const MIN_GAMES_FOR_SET = 6;
 export const MIN_GAME_DIFFERENCE = 2;
 export const MAX_GAMES_FOR_SET = 7;
+
+// Rules for a tie break
+export const MIN_POINTS_FOR_TIE_BREAK = 7;

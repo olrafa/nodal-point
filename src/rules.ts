@@ -3,16 +3,23 @@ import {
   MIN_GAMES_FOR_SET,
   MIN_GAME_DIFFERENCE,
   MIN_POINTS_FOR_GAME,
+  MIN_POINTS_FOR_TIE_BREAK,
   MIN_POINT_DIFFERENCE,
   SETS_TO_WIN,
 } from "./constants";
 import { PlayerScore } from "./types";
 
-export const isGameOver = (pointsP1: number, pointsP2: number): boolean =>
-  (pointsP1 >= MIN_POINTS_FOR_GAME &&
-    pointsP1 - pointsP2 >= MIN_POINT_DIFFERENCE) ||
-  (pointsP2 >= MIN_POINTS_FOR_GAME &&
-    pointsP2 - pointsP1 >= MIN_POINT_DIFFERENCE);
+export const isGameOver = (
+  pointsP1: number,
+  pointsP2: number,
+  isTieBreak = false
+): boolean => {
+  const minPoints = isTieBreak ? MIN_POINTS_FOR_TIE_BREAK : MIN_POINTS_FOR_GAME;
+  return (
+    (pointsP1 >= minPoints && pointsP1 - pointsP2 >= MIN_POINT_DIFFERENCE) ||
+    (pointsP2 >= minPoints && pointsP2 - pointsP1 >= MIN_POINT_DIFFERENCE)
+  );
+};
 
 export const getGameWinner = (p1: PlayerScore, p2: PlayerScore) =>
   p1.points > p2.points ? p1 : p2;
