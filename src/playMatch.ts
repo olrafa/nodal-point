@@ -78,6 +78,7 @@ const finishSet = (match: Match): void => {
 };
 
 const finishMatch = (match: Match) => {
+  match.set = 0;
   match.ongoing = false;
   match.winner = getMatchWinner(match.p1, match.p2);
   console.log(`${match.winner?.firstName} ${match.winner?.lastName} wins!`);
