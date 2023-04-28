@@ -1,5 +1,7 @@
+import { table } from "console";
 import { POINT_SYSTEM } from "./constants";
 import { Match, Player, PlayerScore } from "./types";
+import { matchScore } from "./logs";
 
 export const printScoreBoard = (match: Match, isTieBreak = false) => {
   const scores = [
@@ -21,7 +23,7 @@ export const printScoreBoard = (match: Match, isTieBreak = false) => {
       return info;
     }
     if (!match.ongoing) {
-      const { games, points, service, ...info } = score;
+      const { games, points, ...info } = score;
       if (!match.p1.gamesS3 && !match.p2.gamesS3) {
         const { S3, ...finalScore } = info;
         return finalScore;
@@ -30,22 +32,22 @@ export const printScoreBoard = (match: Match, isTieBreak = false) => {
     }
   });
 
-  console.table(trimmedScore);
+  matchScore(trimmedScore); // still need to make it look better.
 };
 
 const isPlayerServing = (player: Player, match: Match) =>
-  match.serving.lastName === player.lastName;
+  match.ongoing && match.serving.lastName === player.lastName;
 
 const createScoreLine = (
   player: PlayerScore,
   serving: boolean,
   isTieBreak: boolean
 ) => ({
-  name: `${player.lastName} (${player.ranking})`,
+  name: `${player.lastName} (${player.ranking})${serving ? "*" : ""}`,
   S1: player.gamesS1,
   S2: player.gamesS2,
   S3: player.gamesS3,
   games: player.games,
   points: isTieBreak ? player.points : POINT_SYSTEM[player.points],
-  ...(serving && { service: "*" }),
+  // ...(serving && { service: "*" }),
 });

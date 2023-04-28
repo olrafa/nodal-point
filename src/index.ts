@@ -1,4 +1,5 @@
 import createMatch from "./createMatch";
+import { matchTitle } from "./logs";
 import playMatch from "./playMatch";
 import { getRandomPlayers } from "./util";
 
@@ -14,9 +15,10 @@ const playRandomGame = () => {
       `${firstName} ${lastName} (${ranking})`
   );
 
-  console.log(`\nToday's match is between ${playerOne} and ${playerTwo} \n`);
-
-  playMatch(match);
+  setTimeout(() => {
+    matchTitle(`\nToday's match is between ${playerOne} and ${playerTwo} \n`);
+    playMatch(match);
+  }, 2000);
 };
 
 playRandomGame();
