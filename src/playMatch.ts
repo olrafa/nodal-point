@@ -1,5 +1,5 @@
 import { MIN_GAMES_FOR_SET } from "./constants";
-import { matchEvent, matchScore } from "./logs";
+import { FILL_LOGS, matchEvent, matchScore } from "./logs";
 import { printScoreBoard } from "./printScoreboard";
 import {
   getGameWinner,
@@ -26,8 +26,6 @@ const playSet = (match: Match): void => {
 };
 
 const playGame = (match: Match) => {
-  match.p1.points = 0;
-  match.p2.points = 0;
   updateService(match);
   const isTieBreak =
     match.p1.games === MIN_GAMES_FOR_SET &&
@@ -36,6 +34,8 @@ const playGame = (match: Match) => {
 };
 
 const playPoint = (match: Match, isTieBreak = false): void => {
+  matchEvent(`\n${FILL_LOGS}\n`);
+  // TODO: add comments for break point, set point, match point, tie break.
   const { serving, receiving } = match;
   // in a tie break change service after the first point, then every two points.
   isTieBreak && (serving.points + receiving.points) % 2 && updateService(match);
@@ -56,11 +56,14 @@ const playPoint = (match: Match, isTieBreak = false): void => {
 const finishGame = (match: Match): void => {
   const gameWinner = getGameWinner(match.p1, match.p2);
   gameWinner.games++;
-  matchEvent(`Game for ${gameWinner.lastName}.`);
+  matchEvent(`\nGame for ${gameWinner.lastName}.\n`);
 
   if (isSetOver(match.p1.games, match.p2.games)) {
     finishSet(match);
   } else {
+    match.p1.points = 0;
+    match.p2.points = 0;
+    updateScore(match);
     setTimeout(() => playGame(match), 1500);
   }
 };
@@ -68,7 +71,7 @@ const finishGame = (match: Match): void => {
 const finishSet = (match: Match): void => {
   const setWinner = getSetWinner(match.p1, match.p2);
   setWinner.sets++;
-  matchEvent(`${setWinner.lastName} wins set.`);
+  matchEvent(`\n${setWinner.lastName} wins set.\n`);
 
   updateSetScores(match);
 
@@ -83,11 +86,11 @@ const finishMatch = (match: Match) => {
   match.set = 0;
   match.ongoing = false;
   match.winner = getMatchWinner(match.p1, match.p2);
-  matchEvent(`${match.winner?.firstName} ${match.winner?.lastName} wins!`);
+  matchEvent(`\n${match.winner?.firstName} ${match.winner?.lastName} wins!\n`);
   printScoreBoard(match);
 };
 
-const updateScore = (match: Match, isTieBreak: boolean) => {
+const updateScore = (match: Match, isTieBreak = false) => {
   !isTieBreak && updateDeuce(match);
   printScoreBoard(match, isTieBreak);
 };

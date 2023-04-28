@@ -23,3 +23,12 @@ export type Match = {
   receiving: PlayerScore;
   winner?: Player;
 };
+
+export type ScoreLine = {
+  name: string;
+  S1?: number;
+  S2?: number;
+  S3?: number;
+  games?: number;
+  points?: number | string;
+}

@@ -16,7 +16,7 @@ const playRandomGame = () => {
   );
 
   setTimeout(() => {
-    matchTitle(`\nToday's match is between ${playerOne} and ${playerTwo} \n`);
+    matchTitle(`\nMatch between ${playerOne} and ${playerTwo}.`);
     playMatch(match);
   }, 2000);
 };
