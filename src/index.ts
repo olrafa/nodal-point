@@ -1,22 +1,17 @@
-import createMatch from "./createMatch";
+import createMatch from "./game/createMatch";
+import { logPlayers } from "./scoreboard/logs";
 import playMatch from "./playMatch";
-import { getRandomPlayers } from "./util";
+import { getRandomPlayers } from "./game/util";
 
-const playRandomGame = () => {
+const playRandomMatch = () => {
   const [firstPlayer, secondPlayer] = getRandomPlayers();
 
   const match = createMatch(firstPlayer, secondPlayer);
 
-  const { p1, p2 } = match;
-
-  const [playerOne, playerTwo] = [p1, p2].map(
-    ({ firstName, lastName, ranking }) =>
-      `${firstName} ${lastName} (${ranking})`
-  );
-
-  console.log(`\nToday's match is between ${playerOne} and ${playerTwo} \n`);
-
-  playMatch(match);
+  setTimeout(() => {
+    logPlayers(match);
+    playMatch(match);
+  }, 2000);
 };
 
-playRandomGame();
+playRandomMatch();

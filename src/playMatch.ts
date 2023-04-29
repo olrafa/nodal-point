@@ -1,5 +1,15 @@
-import { MIN_GAMES_FOR_SET } from "./constants";
-import { printScoreBoard } from "./printScoreboard";
+import { MIN_GAMES_FOR_SET } from "./game/constants";
+import {
+  clearEvent,
+  clearTitle,
+  logDeuce,
+  logGameWon,
+  logMatchFinished,
+  logMatchInPlay,
+  logMatchWon,
+  logSetWon,
+} from "./scoreboard/logs";
+import scoreboard from "./scoreboard/scoreboard";
 import {
   getGameWinner,
   getMatchWinner,
@@ -7,25 +17,23 @@ import {
   isGameOver,
   isMatchOver,
   isSetOver,
-} from "./rules";
+} from "./game/rules";
 import { Match } from "./types";
-import { updateService } from "./util";
+import { updateService } from "./game/util";
 
 const playMatch = (match: Match): void => {
   match.ongoing = true;
+  clearTitle();
+  logMatchInPlay();
   playSet(match);
 };
 
 const playSet = (match: Match): void => {
   match.set++;
-  match.p1.games = 0;
-  match.p2.games = 0;
   playGame(match);
 };
 
 const playGame = (match: Match) => {
-  match.p1.points = 0;
-  match.p2.points = 0;
   updateService(match);
   const isTieBreak =
     match.p1.games === MIN_GAMES_FOR_SET &&
@@ -34,6 +42,9 @@ const playGame = (match: Match) => {
 };
 
 const playPoint = (match: Match, isTieBreak = false): void => {
+  // Clear event line from logs.
+  clearEvent();
+  // TODO: add comments for break point, set point, match point, tie break.
   const { serving, receiving } = match;
   // in a tie break change service after the first point, then every two points.
   isTieBreak && (serving.points + receiving.points) % 2 && updateService(match);
@@ -54,21 +65,25 @@ const playPoint = (match: Match, isTieBreak = false): void => {
 const finishGame = (match: Match): void => {
   const gameWinner = getGameWinner(match.p1, match.p2);
   gameWinner.games++;
-  console.log(`Game for ${gameWinner.lastName}.\n`);
+  match.p1.points = 0;
+  match.p2.points = 0;
+  logGameWon(gameWinner);
 
   if (isSetOver(match.p1.games, match.p2.games)) {
     finishSet(match);
   } else {
+    updateScore(match);
     setTimeout(() => playGame(match), 1500);
   }
 };
 
 const finishSet = (match: Match): void => {
+  updateSetScores(match);
   const setWinner = getSetWinner(match.p1, match.p2);
   setWinner.sets++;
-  console.log(`${setWinner.lastName} wins set.\n`);
-
-  updateSetScores(match);
+  match.p1.games = 0;
+  match.p2.games = 0;
+  logSetWon(setWinner);
 
   if (isMatchOver(match.p1.sets, match.p2.sets)) {
     finishMatch(match);
@@ -78,17 +93,16 @@ const finishSet = (match: Match): void => {
 };
 
 const finishMatch = (match: Match) => {
-  match.set = 0;
   match.ongoing = false;
+  logMatchFinished();
   match.winner = getMatchWinner(match.p1, match.p2);
-  console.log(`${match.winner?.firstName} ${match.winner?.lastName} wins!`);
-  printScoreBoard(match);
+  match.winner && logMatchWon(match.winner);
+  scoreboard(match);
 };
 
-const updateScore = (match: Match, isTieBreak: boolean) => {
+const updateScore = (match: Match, isTieBreak = false) => {
   !isTieBreak && updateDeuce(match);
-  printScoreBoard(match, isTieBreak);
-  console.log("\n");
+  scoreboard(match, isTieBreak);
 };
 
 const updateSetScores = (match: Match) => {
@@ -110,6 +124,7 @@ const updateDeuce = ({ p1, p2 }: Match) => {
   if (p1.points > 3 && p2.points > 3) {
     p1.points = 3;
     p2.points = 3;
+    logDeuce();
   }
 };
 

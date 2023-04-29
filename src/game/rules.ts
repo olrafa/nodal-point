@@ -7,7 +7,7 @@ import {
   MIN_POINT_DIFFERENCE,
   SETS_TO_WIN,
 } from "./constants";
-import { PlayerScore } from "./types";
+import { PlayerScore } from "../types";
 
 export const isGameOver = (
   pointsP1: number,
