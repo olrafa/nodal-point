@@ -1,8 +1,11 @@
 import { MIN_GAMES_FOR_SET } from "./constants";
 import {
   clearEvent,
+  clearTitle,
   logDeuce,
   logGameWon,
+  logMatchFinished,
+  logMatchInPlay,
   logMatchWon,
   logSetWon,
 } from "./logs";
@@ -20,6 +23,8 @@ import { updateService } from "./util";
 
 const playMatch = (match: Match): void => {
   match.ongoing = true;
+  clearTitle();
+  logMatchInPlay();
   playSet(match);
 };
 
@@ -88,8 +93,8 @@ const finishSet = (match: Match): void => {
 };
 
 const finishMatch = (match: Match) => {
-  match.set = 0;
   match.ongoing = false;
+  logMatchFinished();
   match.winner = getMatchWinner(match.p1, match.p2);
   match.winner && logMatchWon(match.winner);
   scoreBoards(match);

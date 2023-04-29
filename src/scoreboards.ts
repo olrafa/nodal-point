@@ -2,43 +2,23 @@ import { POINT_SYSTEM } from "./constants";
 import { Match, Player, PlayerScore, ScoreLine } from "./types";
 import { clearScoreBoard, matchScore } from "./logs";
 import getMatchEvents from "./getMatchEvents";
+import { getPlayerScoreBoard, trimScoreBoard } from "./getPlayerScoreBoard";
 
 export const scoreBoards = (match: Match, isTieBreak = false) => {
   clearScoreBoard();
   const scores = createScoreLines(match, isTieBreak);
   const { p1, p2, set, ongoing } = match;
+  const isFirstPointOnGame = !p1.points && !p2.points;
+  const isFirstGameOnSet = !p1.games && !p2.games;
 
-  const trimmedScore = scores.map((score) => {
-    // As seen on TV, just show games and points once they begin.
-    !p1.games && !p2.games && delete score.games;
-    !p1.points && !p2.points && delete score.points;
-    // Also just show events )Break Point, Set Point etc) when they are there.
-    !score.event && delete score.event;
+  const trimmedScore = scores.map((score) =>
+    trimScoreBoard(score, set, ongoing, isFirstGameOnSet, isFirstPointOnGame)
+  );
+  const [p1ScoreBoard, p2Scoreboard] = trimmedScore.map((score) =>
+    getPlayerScoreBoard(score)
+  );
 
-    // Also just show scores for completed sets after set is completed (duh)
-    if (set === 1) {
-      const { S1, S2, S3, ...info } = score;
-      return info;
-    }
-    if (set === 2) {
-      const { S2, S3, ...info } = score;
-      return info;
-    }
-    if (set === 3) {
-      const { S3, ...info } = score;
-      return info;
-    }
-    if (!ongoing) {
-      const { games, points, ...info } = score;
-      if (!p1.gamesS3 && !p2.gamesS3) {
-        const { S3, ...finalScore } = info;
-        return finalScore;
-      }
-      return info;
-    }
-  });
-
-  matchScore("\n", trimmedScore); // TODO: make it look better with chalk etc.
+  matchScore("\n", p1ScoreBoard, "\n", p2Scoreboard); // TODO: make it look better with chalk etc.
 };
 
 const createScoreLines = (

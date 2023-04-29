@@ -1,5 +1,5 @@
 import createMatch from "./createMatch";
-import { matchTitle } from "./logs";
+import { logPlayers } from "./logs";
 import playMatch from "./playMatch";
 import { getRandomPlayers } from "./util";
 
@@ -8,15 +8,8 @@ const playRandomGame = () => {
 
   const match = createMatch(firstPlayer, secondPlayer);
 
-  const { p1, p2 } = match;
-
-  const [playerOne, playerTwo] = [p1, p2].map(
-    ({ firstName, lastName, ranking }) =>
-      `${firstName} ${lastName} (${ranking})`
-  );
-
   setTimeout(() => {
-    matchTitle(`\nMatch between ${playerOne} and ${playerTwo}.`);
+    logPlayers(match);
     playMatch(match);
   }, 2000);
 };
