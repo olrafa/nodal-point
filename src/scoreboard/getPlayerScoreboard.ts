@@ -40,10 +40,10 @@ const twoDigitScores = POINT_SYSTEM.slice(1, 4);
 
 export const getPlayerScoreboard = (player: ScoreLine) => {
   const { name, event = "", ...scores } = player;
-  const playerName = name + " ".repeat(25 - name.length);
-  const gameInfo = Object.values(scores).map(
-    (score) => `${twoDigitScores.includes(score) ? " " : "  "}${score}  `
-  );
+  const playerName = name + " ".repeat(20 - name.length);
+  const gameInfo = Object.values(scores)
+    .map((score) => `${twoDigitScores.includes(score) ? " " : "  "}${score}  `)
+    .join("|");
 
   return playerName + gameInfo + event;
 };

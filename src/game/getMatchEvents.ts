@@ -1,5 +1,6 @@
 import {
   BREAK_POINT,
+  GAMES_FOR_EACH_TO_GO_FOR_MAX,
   MATCH_POINT,
   MAX_GAMES_FOR_SET,
   MIN_GAMES_FOR_SET,
@@ -17,7 +18,11 @@ const getMatchEvents = (
 ): string | undefined => {
   const isTieBreak =
     player.games === MIN_GAMES_FOR_SET && opponent.games === MIN_GAMES_FOR_SET;
-  const gamesNeeded = isTieBreak ? MAX_GAMES_FOR_SET : MIN_GAMES_FOR_SET;
+  const gamesNeeded =
+    player.games === GAMES_FOR_EACH_TO_GO_FOR_MAX &&
+    opponent.games === GAMES_FOR_EACH_TO_GO_FOR_MAX
+      ? MAX_GAMES_FOR_SET
+      : MIN_GAMES_FOR_SET;
   const pointsNeeded = isTieBreak
     ? MIN_POINTS_FOR_TIE_BREAK
     : MIN_POINTS_FOR_GAME;

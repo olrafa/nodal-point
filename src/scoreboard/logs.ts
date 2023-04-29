@@ -8,7 +8,7 @@ draftLog(console);
 // Every new log will be an update on these.
 export const matchTitle = console.draft("\nWelcome to the Tennis Simulator!");
 export const matchScore = console.draft("\n\n\n\n");
-export const matchEvent = console.draft("\nGame is about to start\n");
+export const matchEvent = console.draft("Game is about to start\n");
 
 export const FILL_LOGS = " ".repeat(100);
 
@@ -19,10 +19,10 @@ export const clearScoreboard = () =>
   matchScore(`\n${FILL_LOGS}\n${FILL_LOGS}`);
 
 export const logGameWon = (winner: Player) =>
-  matchEvent(`\nGame for ${winner.lastName}.\n`);
+  matchEvent(`Game for ${winner.lastName}.\n`);
 
 export const logSetWon = (winner: Player) =>
-  matchEvent(`\n${winner.lastName} wins set.\n`);
+  matchEvent(`${winner.lastName} wins set.\n`);
 
 export const logPlayers = ({ p1, p2 }: Match) => {
   const [playerOne, playerTwo] = [p1, p2].map(

@@ -9,7 +9,7 @@ import {
   logMatchWon,
   logSetWon,
 } from "./scoreboard/logs";
-import scoreboard from "./scoreboard/scoreboards";
+import scoreboard from "./scoreboard/scoreboard";
 import {
   getGameWinner,
   getMatchWinner,
@@ -30,8 +30,6 @@ const playMatch = (match: Match): void => {
 
 const playSet = (match: Match): void => {
   match.set++;
-  match.p1.games = 0;
-  match.p2.games = 0;
   playGame(match);
 };
 
@@ -80,15 +78,16 @@ const finishGame = (match: Match): void => {
 };
 
 const finishSet = (match: Match): void => {
+  updateSetScores(match);
   const setWinner = getSetWinner(match.p1, match.p2);
   setWinner.sets++;
   logSetWon(setWinner);
 
-  updateSetScores(match);
-
   if (isMatchOver(match.p1.sets, match.p2.sets)) {
     finishMatch(match);
   } else {
+    match.p1.games = 0;
+    match.p2.games = 0;
     setTimeout(() => playSet(match), 1500);
   }
 };
