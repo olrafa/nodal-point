@@ -1,24 +1,24 @@
-import { POINT_SYSTEM } from "./constants";
-import { Match, Player, PlayerScore, ScoreLine } from "./types";
-import { clearScoreBoard, matchScore } from "./logs";
-import getMatchEvents from "./getMatchEvents";
-import { getPlayerScoreBoard, trimScoreBoard } from "./getPlayerScoreBoard";
+import { POINT_SYSTEM } from "../game/constants";
+import { Match, Player, PlayerScore, ScoreLine } from "../types";
+import { clearScoreboard, matchScore } from "./logs";
+import getMatchEvents from "../game/getMatchEvents";
+import { getPlayerScoreboard, trimScoreboard } from "./getPlayerScoreboard";
 
-export const scoreBoards = (match: Match, isTieBreak = false) => {
-  clearScoreBoard();
+const scoreboard = (match: Match, isTieBreak = false) => {
+  clearScoreboard();
   const scores = createScoreLines(match, isTieBreak);
   const { p1, p2, set, ongoing } = match;
   const isFirstPointOnGame = !p1.points && !p2.points;
   const isFirstGameOnSet = !p1.games && !p2.games;
 
   const trimmedScore = scores.map((score) =>
-    trimScoreBoard(score, set, ongoing, isFirstGameOnSet, isFirstPointOnGame)
+    trimScoreboard(score, set, ongoing, isFirstGameOnSet, isFirstPointOnGame)
   );
-  const [p1ScoreBoard, p2Scoreboard] = trimmedScore.map((score) =>
-    getPlayerScoreBoard(score)
+  const [p1Scoreboard, p2Scoreboard] = trimmedScore.map((score) =>
+    getPlayerScoreboard(score)
   );
 
-  matchScore("\n", p1ScoreBoard, "\n", p2Scoreboard); // TODO: make it look better with chalk etc.
+  matchScore("\n", p1Scoreboard, "\n", p2Scoreboard); // TODO: make it look better with chalk etc.
 };
 
 const createScoreLines = (
@@ -56,3 +56,5 @@ const createScoreLine = (
 
 const getOpponent = (player: PlayerScore, p1: PlayerScore, p2: PlayerScore) =>
   player === p1 ? p2 : p1;
+
+export default scoreboard;

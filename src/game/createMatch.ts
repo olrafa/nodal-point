@@ -1,5 +1,5 @@
 import { MAX_ADVANTAGE, MIN_ADVANTAGE, SERVING_ADVANTAGE } from "./constants";
-import { Match, Player, PlayerScore } from "./types";
+import { Match, Player, PlayerScore } from "../types";
 
 const createMatch = (playerOne: Player, playerTwo: Player): Match => {
   const player1 = initializePlayer(playerOne, playerTwo);

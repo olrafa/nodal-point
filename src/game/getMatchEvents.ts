@@ -8,7 +8,7 @@ import {
   MIN_POINT_DIFFERENCE,
   SET_POINT,
 } from "./constants";
-import { PlayerScore } from "./types";
+import { PlayerScore } from "../types";
 
 const getMatchEvents = (
   player: PlayerScore,

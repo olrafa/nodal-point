@@ -1,9 +1,9 @@
-import createMatch from "./createMatch";
-import { logPlayers } from "./logs";
+import createMatch from "./game/createMatch";
+import { logPlayers } from "./scoreboard/logs";
 import playMatch from "./playMatch";
-import { getRandomPlayers } from "./util";
+import { getRandomPlayers } from "./game/util";
 
-const playRandomGame = () => {
+const playRandomMatch = () => {
   const [firstPlayer, secondPlayer] = getRandomPlayers();
 
   const match = createMatch(firstPlayer, secondPlayer);
@@ -14,4 +14,4 @@ const playRandomGame = () => {
   }, 2000);
 };
 
-playRandomGame();
+playRandomMatch();

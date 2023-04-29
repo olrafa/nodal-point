@@ -1,4 +1,4 @@
-import { Player } from "./types";
+import { Player } from "../types";
 
 // WTA rankings as of April 26th, 2023.
 const PLAYERS: Player[] = [

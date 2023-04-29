@@ -1,5 +1,5 @@
 import PLAYERS from "./players";
-import { Match, PlayerScore } from "./types";
+import { Match, PlayerScore } from "../types";
 
 // create a game between two random players;
 export const getRandomPlayers = () =>

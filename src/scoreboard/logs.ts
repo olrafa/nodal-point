@@ -1,17 +1,22 @@
 import draftLog from "draftlog";
-import { Player } from "./types";
-import { Match } from "./types";
+import { Player } from "../types";
+import { Match } from "../types";
 
 draftLog(console);
 
+// These are the three items on the log.
+// Every new log will be an update on these.
 export const matchTitle = console.draft("\nWelcome to the Tennis Simulator!");
 export const matchScore = console.draft("\n\n\n\n");
 export const matchEvent = console.draft("\nGame is about to start\n");
 
 export const FILL_LOGS = " ".repeat(100);
 
+// Workaround to clear the logs, otherwise the overwrites get weird.
 export const clearEvent = () => matchEvent(`\n${FILL_LOGS}\n`);
 export const clearTitle = () => matchTitle(`\n${FILL_LOGS}\n`);
+export const clearScoreboard = () =>
+  matchScore(`\n${FILL_LOGS}\n${FILL_LOGS}`);
 
 export const logGameWon = (winner: Player) =>
   matchEvent(`\nGame for ${winner.lastName}.\n`);
@@ -35,6 +40,4 @@ export const logMatchWon = (winner: Player) =>
 
 export const logDeuce = () => matchEvent(`\nDEUCE\n`);
 
-// Workaround to clear the score, otherwise the overwrite gets weird.
-export const clearScoreBoard = () =>
-  matchScore(`\n\n${FILL_LOGS}\n${FILL_LOGS}\n`);
+

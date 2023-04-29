@@ -1,4 +1,4 @@
-import { MIN_GAMES_FOR_SET } from "./constants";
+import { MIN_GAMES_FOR_SET } from "./game/constants";
 import {
   clearEvent,
   clearTitle,
@@ -8,8 +8,8 @@ import {
   logMatchInPlay,
   logMatchWon,
   logSetWon,
-} from "./logs";
-import { scoreBoards } from "./scoreboards";
+} from "./scoreboard/logs";
+import scoreboard from "./scoreboard/scoreboards";
 import {
   getGameWinner,
   getMatchWinner,
@@ -17,9 +17,9 @@ import {
   isGameOver,
   isMatchOver,
   isSetOver,
-} from "./rules";
+} from "./game/rules";
 import { Match } from "./types";
-import { updateService } from "./util";
+import { updateService } from "./game/util";
 
 const playMatch = (match: Match): void => {
   match.ongoing = true;
@@ -44,6 +44,7 @@ const playGame = (match: Match) => {
 };
 
 const playPoint = (match: Match, isTieBreak = false): void => {
+  // Clear event line from logs.
   clearEvent();
   // TODO: add comments for break point, set point, match point, tie break.
   const { serving, receiving } = match;
@@ -97,12 +98,12 @@ const finishMatch = (match: Match) => {
   logMatchFinished();
   match.winner = getMatchWinner(match.p1, match.p2);
   match.winner && logMatchWon(match.winner);
-  scoreBoards(match);
+  scoreboard(match);
 };
 
 const updateScore = (match: Match, isTieBreak = false) => {
   !isTieBreak && updateDeuce(match);
-  scoreBoards(match, isTieBreak);
+  scoreboard(match, isTieBreak);
 };
 
 const updateSetScores = (match: Match) => {
