@@ -1,12 +1,12 @@
 import { MIN_GAMES_FOR_SET } from "./constants";
 import {
-  clearScoreBoard,
+  clearEvent,
   logDeuce,
   logGameWon,
   logMatchWon,
   logSetWon,
 } from "./logs";
-import { printScoreBoard } from "./printScoreboard";
+import { scoreBoards } from "./scoreboards";
 import {
   getGameWinner,
   getMatchWinner,
@@ -39,7 +39,7 @@ const playGame = (match: Match) => {
 };
 
 const playPoint = (match: Match, isTieBreak = false): void => {
-  clearScoreBoard();
+  clearEvent();
   // TODO: add comments for break point, set point, match point, tie break.
   const { serving, receiving } = match;
   // in a tie break change service after the first point, then every two points.
@@ -92,12 +92,12 @@ const finishMatch = (match: Match) => {
   match.ongoing = false;
   match.winner = getMatchWinner(match.p1, match.p2);
   match.winner && logMatchWon(match.winner);
-  printScoreBoard(match);
+  scoreBoards(match);
 };
 
 const updateScore = (match: Match, isTieBreak = false) => {
   !isTieBreak && updateDeuce(match);
-  printScoreBoard(match, isTieBreak);
+  scoreBoards(match, isTieBreak);
 };
 
 const updateSetScores = (match: Match) => {

@@ -1,34 +1,36 @@
-import { table } from "console";
 import { POINT_SYSTEM } from "./constants";
 import { Match, Player, PlayerScore, ScoreLine } from "./types";
-import { FILL_LOGS, matchScore } from "./logs";
+import { clearScoreBoard, matchScore } from "./logs";
+import getMatchEvents from "./getMatchEvents";
 
-export const printScoreBoard = (match: Match, isTieBreak = false) => {
-  // Workaround to clear the score, otherwise the overwrite gets weird.
-  matchScore(`\n\n${FILL_LOGS}\n${FILL_LOGS}\n`);
+export const scoreBoards = (match: Match, isTieBreak = false) => {
+  clearScoreBoard();
   const scores = createScoreLines(match, isTieBreak);
+  const { p1, p2, set, ongoing } = match;
 
   const trimmedScore = scores.map((score) => {
     // As seen on TV, just show games and points once they begin.
-    !match.p1.games && !match.p2.games && delete score.games;
-    !match.p1.points && !match.p2.points && delete score.points;
+    !p1.games && !p2.games && delete score.games;
+    !p1.points && !p2.points && delete score.points;
+    // Also just show events )Break Point, Set Point etc) when they are there.
+    !score.event && delete score.event;
 
     // Also just show scores for completed sets after set is completed (duh)
-    if (match.set === 1) {
+    if (set === 1) {
       const { S1, S2, S3, ...info } = score;
       return info;
     }
-    if (match.set === 2) {
+    if (set === 2) {
       const { S2, S3, ...info } = score;
       return info;
     }
-    if (match.set === 3) {
+    if (set === 3) {
       const { S3, ...info } = score;
       return info;
     }
-    if (!match.ongoing) {
+    if (!ongoing) {
       const { games, points, ...info } = score;
-      if (!match.p1.gamesS3 && !match.p2.gamesS3) {
+      if (!p1.gamesS3 && !p2.gamesS3) {
         const { S3, ...finalScore } = info;
         return finalScore;
       }
@@ -46,6 +48,7 @@ const createScoreLines = (
   [p1, p2].map((player) =>
     createScoreLine(
       player,
+      getOpponent(player, p1, p2),
       isPlayerServing(player, ongoing, serving),
       isTieBreak
     )
@@ -58,6 +61,7 @@ const isPlayerServing = (player: Player, ongoing: boolean, serving: Player) =>
 
 const createScoreLine = (
   player: PlayerScore,
+  opponent: PlayerScore,
   serving: boolean,
   isTieBreak: boolean
 ): ScoreLine => ({
@@ -67,4 +71,8 @@ const createScoreLine = (
   S3: player.gamesS3,
   games: player.games,
   points: isTieBreak ? player.points : POINT_SYSTEM[player.points],
+  event: getMatchEvents(player, opponent, serving),
 });
+
+const getOpponent = (player: PlayerScore, p1: PlayerScore, p2: PlayerScore) =>
+  player === p1 ? p2 : p1;
