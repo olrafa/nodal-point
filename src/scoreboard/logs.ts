@@ -7,7 +7,7 @@ draftLog(console);
 // These are the three items on the log.
 // Every new log will be an update on these.
 export const matchTitle = console.draft("\nWelcome to the Tennis Simulator!");
-export const matchScore = console.draft("\n\n\n\n");
+export const matchScore = console.draft("\n\n\n");
 export const matchEvent = console.draft("Game is about to start\n");
 
 export const FILL_LOGS = " ".repeat(100);
@@ -38,6 +38,6 @@ export const logMatchFinished = () => matchTitle("\nMATCH FINISHED");
 export const logMatchWon = (winner: Player) =>
   matchEvent(`\n${winner?.firstName} ${winner?.lastName} wins!\n`);
 
-export const logDeuce = () => matchEvent(`\nDEUCE\n`);
+export const logDeuce = () => matchEvent(`DEUCE\n`);
 
 

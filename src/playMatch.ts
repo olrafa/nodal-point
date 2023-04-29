@@ -65,13 +65,13 @@ const playPoint = (match: Match, isTieBreak = false): void => {
 const finishGame = (match: Match): void => {
   const gameWinner = getGameWinner(match.p1, match.p2);
   gameWinner.games++;
+  match.p1.points = 0;
+  match.p2.points = 0;
   logGameWon(gameWinner);
 
   if (isSetOver(match.p1.games, match.p2.games)) {
     finishSet(match);
   } else {
-    match.p1.points = 0;
-    match.p2.points = 0;
     updateScore(match);
     setTimeout(() => playGame(match), 1500);
   }
@@ -81,13 +81,13 @@ const finishSet = (match: Match): void => {
   updateSetScores(match);
   const setWinner = getSetWinner(match.p1, match.p2);
   setWinner.sets++;
+  match.p1.games = 0;
+  match.p2.games = 0;
   logSetWon(setWinner);
 
   if (isMatchOver(match.p1.sets, match.p2.sets)) {
     finishMatch(match);
   } else {
-    match.p1.games = 0;
-    match.p2.games = 0;
     setTimeout(() => playSet(match), 1500);
   }
 };
