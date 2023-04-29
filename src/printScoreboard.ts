@@ -6,19 +6,12 @@ import { FILL_LOGS, matchScore } from "./logs";
 export const printScoreBoard = (match: Match, isTieBreak = false) => {
   // Workaround to clear the score, otherwise the overwrite gets weird.
   matchScore(`\n\n${FILL_LOGS}\n${FILL_LOGS}\n`);
-  const scores = [
-    createScoreLine(match.p1, isPlayerServing(match.p1, match), isTieBreak),
-    createScoreLine(match.p2, isPlayerServing(match.p2, match), isTieBreak),
-  ];
+  const scores = createScoreLines(match, isTieBreak);
 
   const trimmedScore = scores.map((score) => {
     // As seen on TV, just show games and points once they begin.
-    if (!match.p1.games && !match.p2.games) {
-      delete score.games;
-    }
-    if (!match.p1.points && !match.p2.points) {
-      delete score.points;
-    }
+    !match.p1.games && !match.p2.games && delete score.games;
+    !match.p1.points && !match.p2.points && delete score.points;
 
     // Also just show scores for completed sets after set is completed (duh)
     if (match.set === 1) {
@@ -46,8 +39,22 @@ export const printScoreBoard = (match: Match, isTieBreak = false) => {
   matchScore("\n", trimmedScore); // TODO: make it look better with chalk etc.
 };
 
-const isPlayerServing = (player: Player, match: Match) =>
-  match.ongoing && match.serving.lastName === player.lastName;
+const createScoreLines = (
+  { p1, p2, ongoing, serving }: Match,
+  isTieBreak: boolean
+) =>
+  [p1, p2].map((player) =>
+    createScoreLine(
+      player,
+      isPlayerServing(player, ongoing, serving),
+      isTieBreak
+    )
+  );
+
+const isPlayerServing = (player: Player, ongoing: boolean, serving: Player) =>
+  ongoing &&
+  serving.firstName === player.firstName &&
+  serving.lastName === player.lastName;
 
 const createScoreLine = (
   player: PlayerScore,

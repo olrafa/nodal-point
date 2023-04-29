@@ -1,5 +1,11 @@
 import { MIN_GAMES_FOR_SET } from "./constants";
-import { FILL_LOGS, matchEvent, matchScore } from "./logs";
+import {
+  clearScoreBoard,
+  logDeuce,
+  logGameWon,
+  logMatchWon,
+  logSetWon,
+} from "./logs";
 import { printScoreBoard } from "./printScoreboard";
 import {
   getGameWinner,
@@ -14,7 +20,6 @@ import { updateService } from "./util";
 
 const playMatch = (match: Match): void => {
   match.ongoing = true;
-  matchScore("");
   playSet(match);
 };
 
@@ -34,7 +39,7 @@ const playGame = (match: Match) => {
 };
 
 const playPoint = (match: Match, isTieBreak = false): void => {
-  matchEvent(`\n${FILL_LOGS}\n`);
+  clearScoreBoard();
   // TODO: add comments for break point, set point, match point, tie break.
   const { serving, receiving } = match;
   // in a tie break change service after the first point, then every two points.
@@ -56,7 +61,7 @@ const playPoint = (match: Match, isTieBreak = false): void => {
 const finishGame = (match: Match): void => {
   const gameWinner = getGameWinner(match.p1, match.p2);
   gameWinner.games++;
-  matchEvent(`\nGame for ${gameWinner.lastName}.\n`);
+  logGameWon(gameWinner);
 
   if (isSetOver(match.p1.games, match.p2.games)) {
     finishSet(match);
@@ -71,7 +76,7 @@ const finishGame = (match: Match): void => {
 const finishSet = (match: Match): void => {
   const setWinner = getSetWinner(match.p1, match.p2);
   setWinner.sets++;
-  matchEvent(`\n${setWinner.lastName} wins set.\n`);
+  logSetWon(setWinner);
 
   updateSetScores(match);
 
@@ -86,7 +91,7 @@ const finishMatch = (match: Match) => {
   match.set = 0;
   match.ongoing = false;
   match.winner = getMatchWinner(match.p1, match.p2);
-  matchEvent(`\n${match.winner?.firstName} ${match.winner?.lastName} wins!\n`);
+  match.winner && logMatchWon(match.winner);
   printScoreBoard(match);
 };
 
@@ -114,7 +119,7 @@ const updateDeuce = ({ p1, p2 }: Match) => {
   if (p1.points > 3 && p2.points > 3) {
     p1.points = 3;
     p2.points = 3;
-    matchEvent("\nDeuce\n");
+    logDeuce();
   }
 };
 
