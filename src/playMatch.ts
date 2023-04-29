@@ -114,6 +114,7 @@ const updateDeuce = ({ p1, p2 }: Match) => {
   if (p1.points > 3 && p2.points > 3) {
     p1.points = 3;
     p2.points = 3;
+    matchEvent("\nDeuce\n");
   }
 };
 

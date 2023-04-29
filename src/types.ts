@@ -31,4 +31,5 @@ export type ScoreLine = {
   S3?: number;
   games?: number;
   points?: number | string;
+  event?: string;
 }
