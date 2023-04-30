@@ -9,6 +9,10 @@ import {
 } from "./constants";
 import { PlayerScore } from "../types";
 
+/**
+ * Does any of the player have enough points to win the game?
+ * On a tie break, the amount of points needed will be different.
+ */
 export const isGameOver = (
   pointsP1: number,
   pointsP2: number,
@@ -21,20 +25,35 @@ export const isGameOver = (
   );
 };
 
+/**
+ * Who scored more points
+ */
 export const getGameWinner = (p1: PlayerScore, p2: PlayerScore) =>
   p1.points > p2.points ? p1 : p2;
 
+/**
+ * Does any of the player have enough points to win the set?
+ */
 export const isSetOver = (gamesP1: number, gamesP2: number): boolean =>
   (gamesP1 === MIN_GAMES_FOR_SET && gamesP1 - gamesP2 >= MIN_GAME_DIFFERENCE) ||
   (gamesP2 === MIN_GAMES_FOR_SET && gamesP2 - gamesP1 >= MIN_GAME_DIFFERENCE) ||
   gamesP1 === MAX_GAMES_FOR_SET ||
   gamesP2 === MAX_GAMES_FOR_SET;
 
+/**
+ * Who won more games
+ */
 export const getSetWinner = (p1: PlayerScore, p2: PlayerScore) =>
   p1.games > p2.games ? p1 : p2;
 
+/**
+ * Did anyone win two sets?
+ */
 export const isMatchOver = (setsP1: number, setsP2: number) =>
   setsP1 === SETS_TO_WIN || setsP2 === SETS_TO_WIN;
 
+/**
+ * Which player won two sets
+ */
 export const getMatchWinner = (p1: PlayerScore, p2: PlayerScore) =>
   [p1, p2].find(({ sets }) => sets === SETS_TO_WIN);

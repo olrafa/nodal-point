@@ -16,7 +16,7 @@ export const MIN_POINT_DIFFERENCE = 2;
 
 // Rules for a set
 export const MIN_GAMES_FOR_SET = 6;
-export const GAMES_FOR_EACH_TO_GO_FOR_MAX = 5; // If both have 5 games, we go to 7.
+export const GAMES_TO_GO_FOR_SEVEN = 5; // If both have 5 games, we go to 7.
 export const MIN_GAME_DIFFERENCE = 2;
 export const MAX_GAMES_FOR_SET = 7;
 

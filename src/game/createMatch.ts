@@ -1,6 +1,12 @@
 import { MAX_ADVANTAGE, MIN_ADVANTAGE, SERVING_ADVANTAGE } from "./constants";
 import { Match, Player, PlayerScore } from "../types";
 
+/**
+ * Initialize the players and match attributes.
+ * @param playerOne 
+ * @param playerTwo 
+ * @returns 
+ */
 const createMatch = (playerOne: Player, playerTwo: Player): Match => {
   const player1 = initializePlayer(playerOne, playerTwo);
   const player2 = initializePlayer(playerTwo, playerOne);
@@ -15,6 +21,13 @@ const createMatch = (playerOne: Player, playerTwo: Player): Match => {
   };
 };
 
+/**
+ * Get a player and add an empty score, also calculate what will be their
+ * serving edge, depending on the opponent.
+ * @param player 
+ * @param opponent 
+ * @returns 
+ */
 const initializePlayer = (player: Player, opponent: Player): PlayerScore => ({
   ...player,
   sets: 0,
@@ -26,7 +39,15 @@ const initializePlayer = (player: Player, opponent: Player): PlayerScore => ({
   gamesS3: 0,
 });
 
-// How much we will favor the serving player
+/**
+ * Each point will be decided from a random number between 0 and 100.
+ * Server will win if number is between 1 and this value.
+ * This value is based in the ranking difference between the two players,
+ * So server is always favored, but it will be more favored or less depending on this value.
+ * @param player
+ * @param opponent
+ * @returns
+ */
 const createServingEdge = (player: Player, opponent: Player): number => {
   const difference = Math.floor((player.ranking - opponent.ranking) / 2);
   const servingEdge = SERVING_ADVANTAGE - difference;

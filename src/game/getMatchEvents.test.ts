@@ -22,6 +22,7 @@ const [firstPlayer, secondPlayer]: PlayerScore[] = players.map((player) => ({
   servingEdge: SERVING_ADVANTAGE,
 }));
 
+// Test events of Break Point, Set Point, Match Point.
 describe("getMatchEvents", () => {
   test("No events to log", () =>
     expect(getMatchEvents(firstPlayer, secondPlayer, true)).toEqual(undefined));

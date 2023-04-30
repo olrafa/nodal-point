@@ -3,6 +3,8 @@ import { logPlayers } from "./scoreboard/logs";
 import playMatch from "./playMatch";
 import { getRandomPlayers } from "./game/util";
 
+
+// Entry point of the app. Pick two random players, create a match and play.
 const playRandomMatch = () => {
   const [firstPlayer, secondPlayer] = getRandomPlayers();
 
