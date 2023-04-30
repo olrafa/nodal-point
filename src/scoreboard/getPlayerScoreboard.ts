@@ -1,6 +1,11 @@
 import { POINT_SYSTEM } from "../game/constants";
 import { ScoreLine } from "../types";
 
+/**
+ * When showing the scores on the logs, just show relevant information.
+ * For example, don't show 2nd set is 0-0 during the first set,
+ * don't show points when a game ends etc.
+ */
 export const trimScoreboard = (
   score: ScoreLine,
   set: number,
@@ -38,6 +43,9 @@ export const trimScoreboard = (
 
 const twoDigitScores = POINT_SYSTEM.slice(1, 4);
 
+/**
+ * Create a string to be displayed on the logs for each player.
+ */
 export const getPlayerScoreboard = (player: ScoreLine) => {
   const { name, event = "", ...scores } = player;
   const playerName = name + " ".repeat(20 - name.length);

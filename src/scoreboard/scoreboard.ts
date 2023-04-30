@@ -4,6 +4,9 @@ import { clearScoreboard, matchScore } from "./logs";
 import getMatchEvents from "../game/getMatchEvents";
 import { getPlayerScoreboard, trimScoreboard } from "./getPlayerScoreboard";
 
+/**
+ * After every point is played, update the score shown in the logs.
+ */
 const scoreboard = (match: Match, isTieBreak = false) => {
   clearScoreboard();
   const scores = createScoreLines(match, isTieBreak);
