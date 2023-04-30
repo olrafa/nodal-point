@@ -1,7 +1,7 @@
 {
   "name": "tennis-simulator",
   "version": "1.0.0",
-  "description": "A small app to simulate tennis matches",
+  "description": "A tennis match simulator running on your Node console.",
   "main": "index.js",
   "scripts": {
     "start:dev": "npx nodemon",

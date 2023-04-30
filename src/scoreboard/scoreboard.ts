@@ -18,7 +18,7 @@ const scoreboard = (match: Match, isTieBreak = false) => {
     getPlayerScoreboard(score)
   );
 
-  matchScore("\n", p1Scoreboard, "\n", p2Scoreboard); // TODO: make it look better with chalk etc.
+  matchScore(`\n${p1Scoreboard}\n${p2Scoreboard}`); // TODO: make it look better with chalk etc.
 };
 
 const createScoreLines = (
