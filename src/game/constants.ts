@@ -11,6 +11,7 @@ export const SETS_TO_WIN = 2;
 
 // Rules for a game
 export const MIN_POINTS_FOR_GAME = 4;
+export const POINTS_FOR_WINNING_ON_ADVANTAGE = 5;
 export const MIN_POINT_DIFFERENCE = 2;
 
 // Rules for a set

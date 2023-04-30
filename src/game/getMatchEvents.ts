@@ -7,6 +7,7 @@ import {
   MIN_POINTS_FOR_GAME,
   MIN_POINTS_FOR_TIE_BREAK,
   MIN_POINT_DIFFERENCE,
+  POINTS_FOR_WINNING_ON_ADVANTAGE,
   SET_POINT,
 } from "./constants";
 import { PlayerScore } from "../types";
@@ -16,16 +17,21 @@ const getMatchEvents = (
   opponent: PlayerScore,
   isServing: boolean
 ): string | undefined => {
-  const isTieBreak =
-    player.games === MIN_GAMES_FOR_SET && opponent.games === MIN_GAMES_FOR_SET;
   const gamesNeeded =
-    player.games === GAMES_FOR_EACH_TO_GO_FOR_MAX &&
-    opponent.games === GAMES_FOR_EACH_TO_GO_FOR_MAX
+    player.games >= GAMES_FOR_EACH_TO_GO_FOR_MAX &&
+    opponent.games >= GAMES_FOR_EACH_TO_GO_FOR_MAX
       ? MAX_GAMES_FOR_SET
       : MIN_GAMES_FOR_SET;
-  const pointsNeeded = isTieBreak
-    ? MIN_POINTS_FOR_TIE_BREAK
-    : MIN_POINTS_FOR_GAME;
+
+  const isTieBreak =
+    player.games === MIN_GAMES_FOR_SET && opponent.games === MIN_GAMES_FOR_SET;
+  const isAdvantage = player.points === 4 && opponent.points === 3;
+
+  const pointsNeeded = getPointsNeeded(
+    isTieBreak,
+    opponent.points,
+    isAdvantage
+  );
 
   if (getHasMatchPoint(player, opponent, gamesNeeded, pointsNeeded)) {
     return MATCH_POINT;
@@ -37,6 +43,23 @@ const getMatchEvents = (
     return BREAK_POINT;
   }
   return undefined;
+};
+
+const getPointsNeeded = (
+  isTieBreak: boolean,
+  opponentPoints: number,
+  isAdvantage: boolean
+) => {
+  if (isTieBreak) {
+    if (opponentPoints >= MIN_POINTS_FOR_TIE_BREAK - 1) {
+      return opponentPoints + 2;
+    }
+    return MIN_POINTS_FOR_TIE_BREAK;
+  }
+  if (isAdvantage) {
+    return POINTS_FOR_WINNING_ON_ADVANTAGE;
+  }
+  return MIN_POINTS_FOR_GAME;
 };
 
 const getHasMatchPoint = (
