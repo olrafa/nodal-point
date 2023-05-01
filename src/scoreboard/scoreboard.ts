@@ -1,5 +1,6 @@
 import { POINT_SYSTEM } from "../game/constants";
 import { Match, ScoreLine } from "../types";
+
 import { clearScoreboard, matchScore } from "./logs";
 import { createScorelines, trimScores } from "./util";
 
@@ -16,8 +17,6 @@ const scoreboard = (match: Match) => {
 
   matchScore(`\n${p1Scoreboard}\n${p2Scoreboard}`); // TODO: make it look better with chalk etc.
 };
-
-
 
 const twoDigitScores = POINT_SYSTEM.slice(1, 4);
 

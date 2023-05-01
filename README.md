@@ -27,7 +27,6 @@ Start a game with `npm run start:dev`. Which is actually run the project on Node
 TODOs:
 - [ ] Improve looks on scoreboard
 - [ ] Add a preview to this README
-- [ ] Set up pre-commit hook for autofixes
 - [ ] Feature: create next match after first is finished, until a whole tournament is played
 
 ## License

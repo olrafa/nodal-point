@@ -2,6 +2,7 @@ import { BREAK_POINT } from "../game/constants";
 import createMatch from "../game/createMatch";
 import { getRandomPlayers } from "../game/util";
 import { Match } from "../types";
+
 import { createScorelines, trimScores } from "./util";
 
 describe("Test the scoreboards", () => {

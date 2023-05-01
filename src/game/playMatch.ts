@@ -1,4 +1,3 @@
-import { MIN_GAMES_FOR_SET } from "./constants";
 import {
   clearEvent,
   clearTitle,
@@ -10,6 +9,8 @@ import {
   logSetWon,
 } from "../scoreboard/logs";
 import scoreboard from "../scoreboard/scoreboard";
+import { Match } from "../types";
+
 import {
   getGameWinner,
   getIsTieBreak,
@@ -19,7 +20,6 @@ import {
   isMatchOver,
   isSetOver,
 } from "./rules";
-import { Match } from "../types";
 import { updateService } from "./util";
 
 /**

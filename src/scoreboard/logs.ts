@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 import draftLog from "draftlog";
-import { Player } from "../types";
-import { Match } from "../types";
+
+import { Match, Player } from "../types";
 
 draftLog(console);
 
@@ -15,8 +16,7 @@ export const FILL_LOGS = " ".repeat(100);
 // Workaround to clear the logs, otherwise the overwrites get weird.
 export const clearEvent = () => matchEvent(`\n${FILL_LOGS}\n`);
 export const clearTitle = () => matchTitle(`\n${FILL_LOGS}\n`);
-export const clearScoreboard = () =>
-  matchScore(`\n${FILL_LOGS}\n${FILL_LOGS}`);
+export const clearScoreboard = () => matchScore(`\n${FILL_LOGS}\n${FILL_LOGS}`);
 
 export const logGameWon = (winner: Player) =>
   matchEvent(`Game for ${winner.lastName}.\n`);
@@ -39,5 +39,3 @@ export const logMatchWon = (winner: Player) =>
   matchEvent(`\n${winner?.firstName} ${winner?.lastName} wins!\n`);
 
 export const logDeuce = () => matchEvent(`DEUCE\n`);
-
-

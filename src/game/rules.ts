@@ -1,13 +1,14 @@
+import { PlayerScore } from "../types";
+
 import {
   MAX_GAMES_FOR_SET,
-  MIN_GAMES_FOR_SET,
   MIN_GAME_DIFFERENCE,
+  MIN_GAMES_FOR_SET,
+  MIN_POINT_DIFFERENCE,
   MIN_POINTS_FOR_GAME,
   MIN_POINTS_FOR_TIE_BREAK,
-  MIN_POINT_DIFFERENCE,
   SETS_TO_WIN,
 } from "./constants";
-import { Match, PlayerScore } from "../types";
 
 /**
  * Does any of the player have enough points to win the game?

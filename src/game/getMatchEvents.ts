@@ -1,16 +1,17 @@
+import { PlayerScore } from "../types";
+
 import {
   BREAK_POINT,
   GAMES_TO_GO_FOR_SEVEN,
   MATCH_POINT,
   MAX_GAMES_FOR_SET,
   MIN_GAMES_FOR_SET,
+  MIN_POINT_DIFFERENCE,
   MIN_POINTS_FOR_GAME,
   MIN_POINTS_FOR_TIE_BREAK,
-  MIN_POINT_DIFFERENCE,
   POINTS_FOR_WINNING_ON_ADVANTAGE,
   SET_POINT,
 } from "./constants";
-import { PlayerScore } from "../types";
 
 /**
  * After each point, check if there is something extra to log on the player's scoreboard
