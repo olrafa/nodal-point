@@ -1,10 +1,12 @@
-# Tennis simulator
+# Nodal point
 
 ## About
 
 A tennis game simulator to run from the terminal, where users only watch the outcome of each point. The idea is vaguely inspired by the vintage football game [Elifoot](https://www.elifoot.com/site/).
 
 The name and ranking of players are hardcoded, based on WTA Rankings as of April 24th, 2023. We pick any random two out of the top 16 to play.
+
+Nodal point is the "Sweetspot" of a tennis racket ([source](https://www.tennis-warehouse.com/learning_center/gear_guides/racquet_and_string_terms.html)). It's also known as Node.
 
 ## Run the project
 
@@ -13,8 +15,8 @@ There is no production build or anything like that. It's just set for a local de
 Then, run:
 
 ```bash
-git clone git@github.com:olrafa/tennis-simulator.git
-cd tennis-simulator
+git clone git@github.com:olrafa/nodal-point.git
+cd nodal-point
 npm install
 ```
 
