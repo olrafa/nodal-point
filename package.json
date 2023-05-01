@@ -1,5 +1,5 @@
 {
-  "name": "tennis-simulator",
+  "name": "nodal-point",
   "version": "1.0.0",
   "description": "A tennis match simulator running on your Node console.",
   "main": "index.js",
