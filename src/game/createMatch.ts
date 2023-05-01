@@ -1,11 +1,12 @@
-import { MAX_ADVANTAGE, MIN_ADVANTAGE, SERVING_ADVANTAGE } from "./constants";
 import { Match, Player, PlayerScore } from "../types";
+
+import { MAX_ADVANTAGE, MIN_ADVANTAGE, SERVING_ADVANTAGE } from "./constants";
 
 /**
  * Initialize the players and match attributes.
- * @param playerOne 
- * @param playerTwo 
- * @returns 
+ * @param playerOne
+ * @param playerTwo
+ * @returns
  */
 const createMatch = (playerOne: Player, playerTwo: Player): Match => {
   const player1 = initializePlayer(playerOne, playerTwo);
@@ -24,9 +25,9 @@ const createMatch = (playerOne: Player, playerTwo: Player): Match => {
 /**
  * Get a player and add an empty score, also calculate what will be their
  * serving edge, depending on the opponent.
- * @param player 
- * @param opponent 
- * @returns 
+ * @param player
+ * @param opponent
+ * @returns
  */
 const initializePlayer = (player: Player, opponent: Player): PlayerScore => ({
   ...player,

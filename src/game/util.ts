@@ -1,5 +1,6 @@
-import PLAYERS from "./players";
 import { Match, PlayerScore } from "../types";
+
+import PLAYERS from "./players";
 
 /**
  * Create a game between two random players;
