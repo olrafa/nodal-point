@@ -8,7 +8,7 @@ The name and ranking of players are hardcoded, based on WTA Rankings as of April
 
 ## Run the project
 
-The is no production build or anything like that. It's just set for a local development environment. So, you need to have Node installed.
+There is no production build or anything like that. It's just set for a local development environment. So, you need to have Node installed.
 
 Then, run:
 
@@ -18,7 +18,7 @@ cd tennis-simulator
 npm install
 ```
 
-Start a match with `npm start`. The process will finished when the match is over.
+Start a match with `npm start`. The process will finish when the match is over.
 
 TODOs:
 
