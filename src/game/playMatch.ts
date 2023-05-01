@@ -1,4 +1,4 @@
-import { MIN_GAMES_FOR_SET } from "./game/constants";
+import { MIN_GAMES_FOR_SET } from "./constants";
 import {
   clearEvent,
   clearTitle,
@@ -8,22 +8,22 @@ import {
   logMatchInPlay,
   logMatchWon,
   logSetWon,
-} from "./scoreboard/logs";
-import scoreboard from "./scoreboard/scoreboard";
+} from "../scoreboard/logs";
+import scoreboard from "../scoreboard/scoreboard";
 import {
   getGameWinner,
+  getIsTieBreak,
   getMatchWinner,
   getSetWinner,
   isGameOver,
   isMatchOver,
   isSetOver,
-} from "./game/rules";
-import { Match } from "./types";
-import { updateService } from "./game/util";
+} from "./rules";
+import { Match } from "../types";
+import { updateService } from "./util";
 
 /**
  * Set match to ongoing, show it in the logs, start the first set
- * @param match
  */
 const playMatch = (match: Match): void => {
   match.ongoing = true;
@@ -34,7 +34,6 @@ const playMatch = (match: Match): void => {
 
 /**
  * Increase set number, start a new game.
- * @param match
  */
 const playSet = (match: Match): void => {
   match.set++;
@@ -43,28 +42,23 @@ const playSet = (match: Match): void => {
 
 /**
  * Update who's serving and start the next game.
- * @param match
  */
 const playGame = (match: Match) => {
   updateService(match);
-  const isTieBreak =
-    match.p1.games === MIN_GAMES_FOR_SET &&
-    match.p2.games === MIN_GAMES_FOR_SET;
-  playPoint(match, isTieBreak);
+  playPoint(match);
 };
 
 /**
  * Each point is decided from a random number between 0 and 100.
  * Server will win if number is between 1 and their "servingEdge",
  * or what is the chance of winning the point when they're serving.
- * @param match
- * @param isTieBreak
  */
-const playPoint = (match: Match, isTieBreak = false): void => {
+const playPoint = (match: Match): void => {
   // Clear event line from logs.
   clearEvent();
   const { serving, receiving } = match;
   // in a tie break change service after the first point, then every two points.
+  const isTieBreak = getIsTieBreak(match.p1, match.p2);
   isTieBreak && (serving.points + receiving.points) % 2 && updateService(match);
   // select a number between 1 and 100.
   const randomNumber = Math.floor(Math.random() * 100) + 1;
@@ -76,13 +70,12 @@ const playPoint = (match: Match, isTieBreak = false): void => {
   } else {
     // keep playing points until game is finished.
     updateScore(match, isTieBreak);
-    setTimeout(() => playPoint(match, isTieBreak), 1500);
+    setTimeout(() => playPoint(match), 1500);
   }
 };
 
 /**
  * Increase the game count of the game winner, clear the points, see what's next
- * @param match 
  */
 const finishGame = (match: Match): void => {
   const gameWinner = getGameWinner(match.p1, match.p2);
@@ -101,7 +94,6 @@ const finishGame = (match: Match): void => {
 
 /**
  * Increase the set count of the game winner, clear the games, see what's next
- * @param match 
  */
 const finishSet = (match: Match): void => {
   updateSetScores(match);
@@ -120,7 +112,6 @@ const finishSet = (match: Match): void => {
 
 /**
  * Set match as finished and log the winner and the final score.
- * @param match 
  */
 const finishMatch = (match: Match) => {
   match.ongoing = false;
@@ -133,18 +124,15 @@ const finishMatch = (match: Match) => {
 /**
  * After every point, update the scoreboard.
  * Also log `deuce` if it's the case
- * @param match 
- * @param isTieBreak 
  */
 const updateScore = (match: Match, isTieBreak = false) => {
   !isTieBreak && updateDeuce(match);
-  scoreboard(match, isTieBreak);
+  scoreboard(match);
 };
 
 /**
  * After each set is finished, populate the games count for each player.
  * It will always be displayed in the scoreboard.
- * @param match 
  */
 const updateSetScores = (match: Match) => {
   if (match.set === 1) {

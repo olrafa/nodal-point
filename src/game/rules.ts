@@ -7,7 +7,7 @@ import {
   MIN_POINT_DIFFERENCE,
   SETS_TO_WIN,
 } from "./constants";
-import { PlayerScore } from "../types";
+import { Match, PlayerScore } from "../types";
 
 /**
  * Does any of the player have enough points to win the game?
@@ -57,3 +57,9 @@ export const isMatchOver = (setsP1: number, setsP2: number) =>
  */
 export const getMatchWinner = (p1: PlayerScore, p2: PlayerScore) =>
   [p1, p2].find(({ sets }) => sets === SETS_TO_WIN);
+
+/**
+ * Is the current game a tie break
+ */
+export const getIsTieBreak = (p1: PlayerScore, p2: PlayerScore): boolean =>
+  p1.games === MIN_GAMES_FOR_SET && p2.games === MIN_GAMES_FOR_SET;
