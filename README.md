@@ -25,7 +25,6 @@ npm install
 Start a game with `npm run start:dev`. Which is actually run the project on Nodemon.
 
 TODOs:
-- [ ] Fix bug with display of finished match
 - [ ] Improve looks on scoreboard
 - [ ] Add a preview to this README
 - [ ] Set up pre-commit hook for autofixes

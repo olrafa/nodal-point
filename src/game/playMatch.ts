@@ -24,7 +24,6 @@ import { updateService } from "./util";
 
 /**
  * Set match to ongoing, show it in the logs, start the first set
- * @param match
  */
 const playMatch = (match: Match): void => {
   match.ongoing = true;
@@ -35,7 +34,6 @@ const playMatch = (match: Match): void => {
 
 /**
  * Increase set number, start a new game.
- * @param match
  */
 const playSet = (match: Match): void => {
   match.set++;
@@ -44,7 +42,6 @@ const playSet = (match: Match): void => {
 
 /**
  * Update who's serving and start the next game.
- * @param match
  */
 const playGame = (match: Match) => {
   updateService(match);
@@ -55,7 +52,6 @@ const playGame = (match: Match) => {
  * Each point is decided from a random number between 0 and 100.
  * Server will win if number is between 1 and their "servingEdge",
  * or what is the chance of winning the point when they're serving.
- * @param match
  */
 const playPoint = (match: Match): void => {
   // Clear event line from logs.
@@ -80,7 +76,6 @@ const playPoint = (match: Match): void => {
 
 /**
  * Increase the game count of the game winner, clear the points, see what's next
- * @param match
  */
 const finishGame = (match: Match): void => {
   const gameWinner = getGameWinner(match.p1, match.p2);
@@ -99,7 +94,6 @@ const finishGame = (match: Match): void => {
 
 /**
  * Increase the set count of the game winner, clear the games, see what's next
- * @param match
  */
 const finishSet = (match: Match): void => {
   updateSetScores(match);
@@ -118,7 +112,6 @@ const finishSet = (match: Match): void => {
 
 /**
  * Set match as finished and log the winner and the final score.
- * @param match
  */
 const finishMatch = (match: Match) => {
   match.ongoing = false;
@@ -131,8 +124,6 @@ const finishMatch = (match: Match) => {
 /**
  * After every point, update the scoreboard.
  * Also log `deuce` if it's the case
- * @param match
- * @param isTieBreak
  */
 const updateScore = (match: Match, isTieBreak = false) => {
   !isTieBreak && updateDeuce(match);
@@ -142,7 +133,6 @@ const updateScore = (match: Match, isTieBreak = false) => {
 /**
  * After each set is finished, populate the games count for each player.
  * It will always be displayed in the scoreboard.
- * @param match
  */
 const updateSetScores = (match: Match) => {
   if (match.set === 1) {
