@@ -6,7 +6,7 @@ A tennis game simulator to run from the terminal, where users only watch the out
 
 The name and ranking of players are hardcoded, based on WTA Rankings as of April 24th, 2023. We pick any random two out of the top 16 to play.
 
-Nodal point is the "Sweetspot" of a tennis racket ([source](https://www.tennis-warehouse.com/learning_center/gear_guides/racquet_and_string_terms.html)). It's also known as Node.
+Nodal point is the "Sweetspot" of a tennis racket, also known as Node ([source](https://www.tennis-warehouse.com/learning_center/gear_guides/racquet_and_string_terms.html)).
 
 ## Run the project
 
