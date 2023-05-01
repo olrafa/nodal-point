@@ -2,9 +2,9 @@
 
 ## About
 
-A tennis game simulator to run from the terminal, where users only watch the outcome of each point. The idea is vaguely inspired on the vintage football game [Elifoot](https://www.elifoot.com/site/).
+A tennis game simulator to run from the terminal, where users only watch the outcome of each point. The idea is vaguely inspired by the vintage football game [Elifoot](https://www.elifoot.com/site/).
 
-The name and ranking of players are hard coded, based on WTA Rankings as of April 24th, 2023. We pick any random two out of the top 16 to play.
+The name and ranking of players are hardcoded, based on WTA Rankings as of April 24th, 2023. We pick any random two out of the top 16 to play.
 
 ## Run the project
 
