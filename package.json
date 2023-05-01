@@ -4,7 +4,8 @@
   "description": "A tennis match simulator running on your Node console.",
   "main": "index.js",
   "scripts": {
-    "start:dev": "npx nodemon",
+    "start": "ts-node src/index.ts",
+    "dev": "npx nodemon",
     "test": "jest --config ./jest.config.json",
     "prepare": "husky install"
   },
