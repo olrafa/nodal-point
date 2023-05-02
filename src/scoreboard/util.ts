@@ -28,7 +28,8 @@ const createScoreLine = (
 ): ScoreLine => {
   const event = getMatchEvents(player, opponent, serving);
   return {
-    name: `${player.lastName} (${player.ranking})${serving ? "*" : ""}`,
+    serving,
+    name: `${player.lastName} (${player.ranking})`,
     S1: player.gamesS1,
     S2: player.gamesS2,
     S3: player.gamesS3,
@@ -38,11 +39,8 @@ const createScoreLine = (
   };
 };
 
-const getOpponent = (
-  player: PlayerScore,
-  p1: PlayerScore,
-  p2: PlayerScore
-) => (player === p1 ? p2 : p1);
+const getOpponent = (player: PlayerScore, p1: PlayerScore, p2: PlayerScore) =>
+  player === p1 ? p2 : p1;
 
 /**
  * When showing the scores on the logs, just show relevant information.
@@ -64,7 +62,7 @@ export const trimScores = (scores: ScoreLine[], match: Match): ScoreLine[] => {
       const { S1, S2, S3, ...info } = score;
       return info;
     }
-    if (set === 2) {
+    if (set === 2 && ongoing) {
       const { S2, S3, ...info } = score;
       return info;
     }

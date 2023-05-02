@@ -8,11 +8,11 @@ const playRandomMatch = () => {
   const [firstPlayer, secondPlayer] = getRandomPlayers();
 
   const match = createMatch(firstPlayer, secondPlayer);
+  logPlayers(match);
 
   setTimeout(() => {
-    logPlayers(match);
     playMatch(match);
-  }, 2000);
+  }, 3000);
 };
 
 playRandomMatch();
