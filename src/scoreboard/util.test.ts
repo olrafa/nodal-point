@@ -11,9 +11,11 @@ describe("Test the scoreboards", () => {
 
   const p1Scoreline = {
     name: `${player1.lastName} (${player1.ranking})`,
+    serving: false,
   };
   const p2ScoreLine = {
     name: `${player2.lastName} (${player2.ranking})`,
+    serving: false,
   };
 
   test("Match before any point is played", () => {
@@ -34,10 +36,8 @@ describe("Test the scoreboards", () => {
     p2: { ...match.p2, points: 1 },
   };
 
-  const player1Serving = p1Scoreline.name + "*";
-
   test("Scoreboard after the first couple of points", () => {
-    const p1Score = { name: player1Serving, points: 30 };
+    const p1Score = { ...p1Scoreline, points: 30, serving: true };
     const p2Score = { ...p2ScoreLine, points: 15 };
     const scorelines = createScorelines(ongoingMatch);
     const trimmedScore = trimScores(scorelines, ongoingMatch);
@@ -52,7 +52,7 @@ describe("Test the scoreboards", () => {
     p2: { ...ongoingMatch.p2, points: 4 },
   };
   test("Scoreboard for advantage and break point", () => {
-    const p1Score = { name: player1Serving, points: 40 };
+    const p1Score = { ...p1Scoreline, points: 40, serving: true };
     const p2Score = { ...p2ScoreLine, points: "A", event: BREAK_POINT };
     const scorelines = createScorelines(matchAtBreakPoint);
     const trimmedScore = trimScores(scorelines, matchAtBreakPoint);
@@ -68,7 +68,13 @@ describe("Test the scoreboards", () => {
     p2: { ...matchAtBreakPoint.p2, games: 6, points: 7, gamesS1: 6 },
   };
   test("Tie break at second set", () => {
-    const p1Score = { name: player1Serving, points: 7, games: 6, S1: 3 };
+    const p1Score = {
+      ...p1Scoreline,
+      points: 7,
+      games: 6,
+      S1: 3,
+      serving: true,
+    };
     const p2Score = { ...p2ScoreLine, points: 7, games: 6, S1: 6 };
     const scorelines = createScorelines(matchAtTSecondSet);
     const trimmedScore = trimScores(scorelines, matchAtTSecondSet);
@@ -97,7 +103,7 @@ describe("Test the scoreboards", () => {
     },
   };
   test("Player wins with only two sets", () => {
-    const p1Score = { name: p1Scoreline.name, S1: 3, S2: 6 };
+    const p1Score = { ...p1Scoreline, S1: 3, S2: 6, serving: false };
     const p2Score = { ...p2ScoreLine, S1: 6, S2: 7 };
     const scorelines = createScorelines(matchEndWith2Sets);
     const trimmedScore = trimScores(scorelines, matchEndWith2Sets);
@@ -113,7 +119,7 @@ describe("Test the scoreboards", () => {
   };
 
   test("End of second set", () => {
-    const p1Score = { name: player1Serving, S1: 3, S2: 7 };
+    const p1Score = { ...p1Scoreline, S1: 3, S2: 7, serving: true };
     const p2Score = { ...p2ScoreLine, S1: 6, S2: 6 };
     const scorelines = createScorelines(matchByEndOfSecondSet);
     const trimmedScore = trimScores(scorelines, matchByEndOfSecondSet);
@@ -129,7 +135,7 @@ describe("Test the scoreboards", () => {
     p2: { ...matchByEndOfSecondSet.p2, gamesS3: 4 },
   };
   test("End of match", () => {
-    const p1Score = { name: p1Scoreline.name, S1: 3, S2: 7, S3: 6 };
+    const p1Score = { ...p1Scoreline, S1: 3, S2: 7, S3: 6, serving: false };
     const p2Score = { ...p2ScoreLine, S1: 6, S2: 6, S3: 4 };
     const scorelines = createScorelines(endOfMatch);
     const trimmedScore = trimScores(scorelines, endOfMatch);
