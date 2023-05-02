@@ -106,6 +106,7 @@ const finishSet = (match: Match): void => {
   if (isMatchOver(match.p1.sets, match.p2.sets)) {
     finishMatch(match);
   } else {
+    updateScore(match);
     setTimeout(() => playSet(match), 1500);
   }
 };

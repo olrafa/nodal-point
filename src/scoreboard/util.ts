@@ -28,7 +28,8 @@ const createScoreLine = (
 ): ScoreLine => {
   const event = getMatchEvents(player, opponent, serving);
   return {
-    name: `${player.lastName} (${player.ranking})${serving ? "*" : ""}`,
+    serving,
+    name: `${player.lastName} (${player.ranking})`,
     S1: player.gamesS1,
     S2: player.gamesS2,
     S3: player.gamesS3,

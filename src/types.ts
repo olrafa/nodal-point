@@ -1,4 +1,3 @@
-
 /**
  * A player outside of a match
  */
@@ -34,15 +33,19 @@ export type Match = {
   winner?: Player;
 };
 
-/**
- * A summary of the info that will go in the scoreboard
- */
-export type ScoreLine = {
-  name: string;
+export type SetScores = {
   S1?: number;
   S2?: number;
   S3?: number;
+};
+
+/**
+ * A summary of the info that will go in the scoreboard
+ */
+export type ScoreLine = SetScores & {
+  serving?: boolean;
+  name: string;
   games?: number;
   points?: number | string;
   event?: string;
-}
+};
