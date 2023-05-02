@@ -76,12 +76,42 @@ describe("Test the scoreboards", () => {
     expect(trimmedScore).toStrictEqual(expectedScore);
   });
 
+  const matchEndWith2Sets: Match = {
+    ...matchAtBreakPoint,
+    set: 2,
+    ongoing: false,
+    winner: match.p2,
+    p1: {
+      ...matchAtBreakPoint.p1,
+      games: 0,
+      points: 0,
+      gamesS1: 3,
+      gamesS2: 6,
+    },
+    p2: {
+      ...matchAtBreakPoint.p2,
+      games: 0,
+      points: 0,
+      gamesS1: 6,
+      gamesS2: 7,
+    },
+  };
+  test("Player wins with only two sets", () => {
+    const p1Score = { name: p1Scoreline.name, S1: 3, S2: 6 };
+    const p2Score = { ...p2ScoreLine, S1: 6, S2: 7 };
+    const scorelines = createScorelines(matchEndWith2Sets);
+    const trimmedScore = trimScores(scorelines, matchEndWith2Sets);
+    const expectedScore = [p1Score, p2Score];
+    expect(trimmedScore).toStrictEqual(expectedScore);
+  });
+
   const matchByEndOfSecondSet: Match = {
     ...matchAtTSecondSet,
     set: 3,
     p1: { ...matchAtTSecondSet.p1, points: 0, games: 0, gamesS2: 7 },
     p2: { ...matchAtTSecondSet.p2, points: 0, games: 0, gamesS2: 6 },
   };
+
   test("End of second set", () => {
     const p1Score = { name: player1Serving, S1: 3, S2: 7 };
     const p2Score = { ...p2ScoreLine, S1: 6, S2: 6 };
