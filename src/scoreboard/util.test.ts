@@ -134,7 +134,7 @@ describe("Test the scoreboards", () => {
     p1: { ...matchByEndOfSecondSet.p1, gamesS3: 6 },
     p2: { ...matchByEndOfSecondSet.p2, gamesS3: 4 },
   };
-  test("End of match", () => {
+  test("End of a match", () => {
     const p1Score = { ...p1Scoreline, S1: 3, S2: 7, S3: 6, serving: false };
     const p2Score = { ...p2ScoreLine, S1: 6, S2: 6, S3: 4 };
     const scorelines = createScorelines(endOfMatch);
