@@ -8,6 +8,10 @@ The name and ranking of players are hardcoded, based on WTA Rankings as of April
 
 Nodal point is the "Sweetspot" of a tennis racket, also known as Node ([source](https://www.tennis-warehouse.com/learning_center/gear_guides/racquet_and_string_terms.html)).
 
+## Preview
+
+![Peek 2023-05-02 15-12](https://user-images.githubusercontent.com/25609447/235750458-f31f0928-6d11-49b9-9234-e895acee9be1.gif)
+
 ## Run the project
 
 There is no production build or anything like that. It's just set for a local development environment. So, you need to have Node installed.
@@ -21,12 +25,6 @@ npm install
 ```
 
 Start a match with `npm start`. The process will finish when the match is over.
-
-TODOs:
-
-- [ ] Improve looks on scoreboard
-- [ ] Add a preview to this README
-- [ ] Feature: create next match after first is finished, until a whole tournament is played
 
 ## License
 
