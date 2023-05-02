@@ -8,8 +8,7 @@ const playRandomMatch = () => {
   const [firstPlayer, secondPlayer] = getRandomPlayers();
 
   const match = createMatch(firstPlayer, secondPlayer);
-  logPlayers(match);
-
+  setTimeout(() => logPlayers(match), 1500);
   setTimeout(() => {
     playMatch(match);
   }, 3000);

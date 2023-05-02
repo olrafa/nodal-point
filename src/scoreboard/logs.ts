@@ -12,9 +12,7 @@ export const matchTitle = console.draft(
   chalk.yellowBright("\nWelcome to the Tennis Simulator!")
 );
 export const matchScore = console.draft("\n\n\n");
-export const matchEvent = console.draft(
-  chalk.greenBright("\nGame is about to start\n")
-);
+export const matchEvent = console.draft(chalk.greenBright("\n\n"));
 
 export const FILL_LOGS = " ".repeat(70);
 
