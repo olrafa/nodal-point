@@ -156,6 +156,9 @@ const updateSetScores = (match: Match) => {
  * and add the log for `deuce`.
  */
 const updateDeuce = ({ p1, p2 }: Match) => {
+  if (p1.points === 3 && p2.points === 3) {
+    logDeuce();
+  }
   if (p1.points > 3 && p2.points > 3) {
     p1.points = 3;
     p2.points = 3;
