@@ -50,6 +50,8 @@ const initializePlayer = (player: Player, opponent: Player): PlayerScore => ({
  * @returns
  */
 const createServingEdge = (player: Player, opponent: Player): number => {
+  // So, if match is between #1 and #9, the difference is 8, we divide it by two.
+  // Then, we have the default serving advantage + 4 for #1, and default -4 for #9.
   const difference = Math.floor((player.ranking - opponent.ranking) / 2);
   const servingEdge = SERVING_ADVANTAGE - difference;
   if (servingEdge > MAX_ADVANTAGE) {
