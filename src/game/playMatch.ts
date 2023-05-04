@@ -29,28 +29,29 @@ import { updateService } from "./util";
  */
 const playMatch = (match: Match): Promise<Player> =>
   new Promise((resolve) => {
+    const { p1, p2 } = match;
     match.ongoing = true;
     clearTitle();
     logMatchInPlay();
 
     // Increase set number, start a new game.
-    const playSet = (match: Match) => {
+    const playSet = () => {
       match.set++;
-      playGame(match);
+      playGame();
     };
 
     // Update who's serving and start the next game.
-    const playGame = (match: Match) => {
+    const playGame = () => {
       updateService(match);
-      playPoint(match);
+      playPoint();
     };
 
-    const playPoint = (match: Match) => {
+    const playPoint = () => {
       // Clear event line from logs.
       clearEvent();
       const { serving, receiving } = match;
       // in a tie break change service after the first point, then every two points.
-      const isTieBreak = getIsTieBreak(match.p1, match.p2);
+      const isTieBreak = getIsTieBreak(p1, p2);
       isTieBreak &&
         (serving.points + receiving.points) % 2 &&
         updateService(match);
@@ -59,57 +60,57 @@ const playMatch = (match: Match): Promise<Player> =>
       pointWinner.points++;
 
       if (isGameOver(serving.points, receiving.points, isTieBreak)) {
-        finishGame(match);
+        finishGame();
       } else {
         // keep playing points until game is finished.
         updateScore(match, isTieBreak);
-        setTimeout(() => playPoint(match), 1500);
+        setTimeout(() => playPoint(), 1500);
       }
     };
 
     // Increase the game count of the game winner, clear the points, see what's next
-    const finishGame = (match: Match) => {
-      const gameWinner = getGameWinner(match.p1, match.p2);
+    const finishGame = () => {
+      const gameWinner = getGameWinner(p1, p2);
       gameWinner.games++;
-      match.p1.points = 0;
-      match.p2.points = 0;
+      p1.points = 0;
+      p2.points = 0;
       logGameWon(gameWinner);
 
-      if (isSetOver(match.p1.games, match.p2.games)) {
-        finishSet(match);
+      if (isSetOver(p1.games, p2.games)) {
+        finishSet();
       } else {
         updateScore(match);
-        setTimeout(() => playGame(match), 1500);
+        setTimeout(() => playGame(), 1500);
       }
     };
 
     // Increase the set count of the game winner, clear the games, see what's next
-    const finishSet = (match: Match) => {
+    const finishSet = () => {
       updateSetScores(match);
-      const setWinner = getSetWinner(match.p1, match.p2);
+      const setWinner = getSetWinner(p1, p2);
       setWinner.sets++;
-      match.p1.games = 0;
-      match.p2.games = 0;
+      p1.games = 0;
+      p2.games = 0;
       logSetWon(setWinner);
 
-      if (isMatchOver(match.p1.sets, match.p2.sets)) {
-        finishMatch(match);
+      if (isMatchOver(p1.sets, p2.sets)) {
+        finishMatch();
       } else {
         updateScore(match);
-        setTimeout(() => playSet(match), 1500);
+        setTimeout(() => playSet(), 1500);
       }
     };
 
     // Set match as finished and log the winner and the final score.
-    const finishMatch = (match: Match) => {
+    const finishMatch = () => {
       match.ongoing = false;
       logMatchFinished();
       scoreboard(match);
-      match.winner = getMatchWinner(match.p1, match.p2);
+      match.winner = getMatchWinner(p1, p2);
       match.winner && resolve(match.winner);
     };
 
-    playSet(match);
+    playSet();
   });
 
 /**
