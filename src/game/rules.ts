@@ -1,4 +1,4 @@
-import { PlayerScore } from "../types";
+import { Player, PlayerScore } from "../types";
 
 import {
   MAX_GAMES_FOR_SET,
@@ -9,6 +9,21 @@ import {
   MIN_POINTS_FOR_TIE_BREAK,
   SETS_TO_WIN,
 } from "./constants";
+
+/**
+ * Each point is decided from a random number between 0 and 100.
+ * Server will win if number is between 1 and their "servingEdge",
+ * or what is the chance of winning the point when they're serving.
+ */
+export const getPointWinner = (
+  server: PlayerScore,
+  receiver: PlayerScore
+): PlayerScore => {
+  // select a number between 1 and 100.
+  const randomNumber = Math.floor(Math.random() * 100) + 1;
+  // If number is within range of server edge, she wins the point.
+  return randomNumber <= server.servingEdge ? server : receiver;
+};
 
 /**
  * Does any of the player have enough points to win the game?
