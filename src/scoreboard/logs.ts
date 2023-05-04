@@ -50,4 +50,4 @@ export const logMatchWon = (winner: Player) =>
   );
 
 export const logDeuce = () =>
-  matchEvent(chalk.bold.black.bgYellowBright(`DEUCE\n`));
+  matchEvent(chalk.bold.black.bgYellowBright(` DEUCE \n`));

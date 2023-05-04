@@ -21,8 +21,8 @@ export const isGameOver = (
 ): boolean => {
   const minPoints = isTieBreak ? MIN_POINTS_FOR_TIE_BREAK : MIN_POINTS_FOR_GAME;
   return (
-    (pointsP1 >= minPoints && pointsP1 - pointsP2 >= MIN_POINT_DIFFERENCE) ||
-    (pointsP2 >= minPoints && pointsP2 - pointsP1 >= MIN_POINT_DIFFERENCE)
+    Math.abs(pointsP1 - pointsP2) >= MIN_POINT_DIFFERENCE &&
+    (pointsP1 >= minPoints || pointsP2 >= minPoints)
   );
 };
 
@@ -36,8 +36,8 @@ export const getGameWinner = (p1: PlayerScore, p2: PlayerScore) =>
  * Does any of the player have enough points to win the set?
  */
 export const isSetOver = (gamesP1: number, gamesP2: number): boolean =>
-  (gamesP1 === MIN_GAMES_FOR_SET && gamesP1 - gamesP2 >= MIN_GAME_DIFFERENCE) ||
-  (gamesP2 === MIN_GAMES_FOR_SET && gamesP2 - gamesP1 >= MIN_GAME_DIFFERENCE) ||
+  (Math.abs(gamesP1 - gamesP2) >= MIN_GAME_DIFFERENCE &&
+    (gamesP1 === MIN_GAMES_FOR_SET || gamesP2 === MIN_GAMES_FOR_SET)) ||
   gamesP1 === MAX_GAMES_FOR_SET ||
   gamesP2 === MAX_GAMES_FOR_SET;
 
