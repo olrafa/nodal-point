@@ -1,13 +1,14 @@
 import { Match, PlayerScore } from "../types";
 
-import PLAYERS from "./players";
+import { ATP_PLAYERS, WTA_PLAYERS } from "./players";
 
 /**
  * Create a game between two random players;
  */
-export const getRandomPlayers = () =>
-  [...PLAYERS].sort(() => 0.5 - Math.random()).slice(0, 2);
-
+export const getRandomPlayers = () => {
+  const players = [WTA_PLAYERS, ATP_PLAYERS][Math.floor(Math.random() * 2)];
+  return players.sort(() => 0.5 - Math.random()).slice(0, 2);
+};
 /**
  * Select a random player to start serving, then just flip the server.
  */
