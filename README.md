@@ -28,4 +28,4 @@ Start a match with `npm start`. The process will finish when the match is over.
 
 ## License
 
-[Unlicense](https://unlicense.org)
+[MIT](https://choosealicense.com/licenses/mit/)
