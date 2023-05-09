@@ -44,7 +44,8 @@
   },
   "dependencies": {
     "chalk": "^4.1.2",
-    "draftlog": "^1.0.13"
+    "draftlog": "^1.0.13",
+    "puppeteer": "^20.1.2"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx}": [

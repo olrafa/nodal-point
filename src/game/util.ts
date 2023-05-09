@@ -1,12 +1,13 @@
-import { Match, PlayerScore } from "../types";
+import { Match, Player, PlayerScore } from "../types";
 
 import { ATP_PLAYERS, WTA_PLAYERS } from "./players";
 
 /**
  * Create a game between two random players;
  */
-export const getRandomPlayers = () => {
-  const players = [WTA_PLAYERS, ATP_PLAYERS][Math.floor(Math.random() * 2)];
+export const getRandomPlayers = (currentPlayers?: Player[]) => {
+  const players =
+    currentPlayers || [WTA_PLAYERS, ATP_PLAYERS][Math.floor(Math.random() * 2)];
   return players.sort(() => 0.5 - Math.random()).slice(0, 2);
 };
 /**
