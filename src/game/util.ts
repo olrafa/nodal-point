@@ -18,11 +18,11 @@ export const updateService = (match: Match): void => {
   match.receiving = match.serving === match.p1 ? match.p2 : match.p1;
 };
 
-export const selectServer = (match: Match): PlayerScore => {
+const selectServer = (match: Match): PlayerScore => {
   const players = [match.p1, match.p2];
   const server = players[Math.floor(Math.random() * 2)];
   return server === match.p1 ? match.p1 : match.p2;
 };
 
-export const switchServe = (match: Match) =>
+const switchServe = (match: Match) =>
   match.serving === match.p1 ? match.p2 : match.p1;

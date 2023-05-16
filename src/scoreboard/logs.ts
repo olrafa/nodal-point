@@ -8,13 +8,13 @@ draftLog(console);
 
 // These are the three items on the log.
 // Every new log will be an update on these.
-export const matchTitle = console.draft(
+const matchTitle = console.draft(
   chalk.yellowBright("\nWelcome to the Tennis Simulator!")
 );
 export const matchScore = console.draft("\n\n\n");
-export const matchEvent = console.draft(chalk.greenBright("\n\n"));
+const matchEvent = console.draft(chalk.greenBright("\n\n"));
 
-export const FILL_LOGS = " ".repeat(70);
+const FILL_LOGS = " ".repeat(70);
 
 // Workaround to clear the logs, otherwise the overwrites get weird.
 export const clearEvent = () => matchEvent(`\n${FILL_LOGS}\n`);

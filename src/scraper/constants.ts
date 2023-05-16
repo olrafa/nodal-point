@@ -1,12 +1,7 @@
-import { Org } from "../types";
-
-export const WTA_PAGE = "https://www.wtatennis.com/rankings/singles";
-export const WTA_PAGE_TARGET_CLASS = "a.rankings__player-link";
-
-export const ATP_PAGE = "https://www.atptour.com/en/rankings/singles";
-export const ATP_PAGE_TARGET_CLASS = "span.player-cell-wrapper > a";
-
 export const ORGS = ["WTA", "ATP"] as const;
+
+// So we never run the risk of mis-spelling WTA or ATP;
+export type Org = (typeof ORGS)[number];
 
 type PageItem = {
   landingPage: string;

@@ -1,8 +1,8 @@
 import puppeteer from "puppeteer";
 
-import { Org, Player } from "../types";
+import { Player } from "../types";
 
-import { ORG_PATHS } from "./constants";
+import { Org, ORG_PATHS } from "./constants";
 
 const MAX_PLAYERS = 16; // Otherwise ATP will return 100 players.
 
