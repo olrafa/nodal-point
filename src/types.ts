@@ -1,3 +1,5 @@
+import { ORGS } from "./scraper/constants";
+
 /**
  * A player outside of a match
  */
@@ -49,3 +51,6 @@ export type ScoreLine = SetScores & {
   points?: number | string;
   event?: string;
 };
+
+// So we never run the risk of mis-spelling WTA or ATP;
+export type Org = (typeof ORGS)[number];

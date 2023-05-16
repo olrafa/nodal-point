@@ -1,13 +1,12 @@
-import { PlayerScore } from "../types";
-
 import {
   BREAK_POINT,
   MATCH_POINT,
   SERVING_ADVANTAGE,
   SET_POINT,
-} from "./constants";
-import getMatchEvents from "./getMatchEvents";
-import { getRandomPlayers } from "./util";
+} from "../game/constants";
+import getMatchEvents from "../game/getMatchEvents";
+import { getRandomPlayers } from "../game/util";
+import { PlayerScore } from "../types";
 
 const players = getRandomPlayers();
 

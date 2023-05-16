@@ -1,13 +1,11 @@
+import { WTA_PLAYERS } from "../tests/playersData";
 import { Match, Player, PlayerScore } from "../types";
-
-import { ATP_PLAYERS, WTA_PLAYERS } from "./players";
 
 /**
  * Create a game between two random players;
  */
 export const getRandomPlayers = (currentPlayers?: Player[]) => {
-  const players =
-    currentPlayers || [WTA_PLAYERS, ATP_PLAYERS][Math.floor(Math.random() * 2)];
+  const players = currentPlayers || WTA_PLAYERS; // fallback to hardcoded WTA rankings.
   return players.sort(() => 0.5 - Math.random()).slice(0, 2);
 };
 /**

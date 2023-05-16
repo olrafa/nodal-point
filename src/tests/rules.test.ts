@@ -1,4 +1,4 @@
-import { isGameOver, isSetOver } from "./rules";
+import { isGameOver, isSetOver } from "../game/rules";
 
 describe("Test counts to finish match", () => {
   test.each([

@@ -1,9 +1,8 @@
 import { BREAK_POINT } from "../game/constants";
 import createMatch from "../game/createMatch";
 import { getRandomPlayers } from "../game/util";
+import { createScorelines, trimScores } from "../scoreboard/util";
 import { Match } from "../types";
-
-import { createScorelines, trimScores } from "./util";
 
 describe("Test the scoreboards", () => {
   const [player1, player2] = getRandomPlayers();
