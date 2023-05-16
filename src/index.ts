@@ -3,6 +3,7 @@ import playMatch from "./game/playMatch";
 import { getRandomPlayers } from "./game/util";
 import { logMatchWon, logPlayers } from "./scoreboard/logs";
 import { ORGS } from "./scraper/constants";
+import getUserInputs from "./inputs";
 import getRankedPlayers from "./scraper";
 
 const findPlayers = async () => {
@@ -23,4 +24,6 @@ const playRandomMatch = async () => {
   );
 };
 
-playRandomMatch();
+getUserInputs();
+
+// playRandomMatch();
