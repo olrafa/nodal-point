@@ -29,8 +29,7 @@ export const logSetWon = (winner: Player) =>
 
 export const logPlayers = ({ p1, p2 }: Match) => {
   const [playerOne, playerTwo] = [p1, p2].map(
-    ({ firstName, lastName, ranking }) =>
-      `${firstName} ${lastName} (${ranking})`
+    ({ fullName, ranking }) => `${fullName} (${ranking})`
   );
   matchTitle(
     chalk.bold.greenBright(`\nMatch between ${playerOne} and ${playerTwo}.`)
@@ -43,11 +42,7 @@ export const logMatchFinished = () =>
   matchTitle(chalk.greenBright("\nMATCH FINISHED"));
 
 export const logMatchWon = (winner: Player) =>
-  matchEvent(
-    chalk.bold.greenBright(
-      `🏆 ${winner?.firstName} ${winner?.lastName} wins!\n`
-    )
-  );
+  matchEvent(chalk.bold.greenBright(`🏆 ${winner?.fullName} wins!\n`));
 
 export const logDeuce = () =>
   matchEvent(chalk.bold.black.bgYellowBright(` DEUCE \n`));

@@ -21,3 +21,5 @@ export const ORG_PATHS: { [key in Org]: PageItem } = {
     attribute: "ga-label",
   },
 };
+
+export const MAX_PLAYERS = 16; // Otherwise ATP will return 100 players.
