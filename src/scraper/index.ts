@@ -2,9 +2,7 @@ import puppeteer from "puppeteer";
 
 import { Player } from "../types";
 
-import { Org, ORG_PATHS } from "./constants";
-
-const MAX_PLAYERS = 16; // Otherwise ATP will return 100 players.
+import { MAX_PLAYERS, Org, ORG_PATHS } from "./constants";
 
 /**
  * Here we will retrieve the up-to-date rankings from WTA and ATP.
@@ -39,8 +37,8 @@ const createPlayersArray = (names: string[]): Player[] =>
   names
     .map((name, i) => {
       const nameDecompose = name.split(" ");
-      const [firstName, lastName] = nameDecompose;
-      return { firstName, lastName, ranking: i + 1 };
+      const [, lastName] = nameDecompose;
+      return { fullName: name, lastName, ranking: i + 1 };
     })
     .slice(0, MAX_PLAYERS);
 

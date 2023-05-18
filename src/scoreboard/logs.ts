@@ -6,13 +6,24 @@ import { Match, Player } from "../types";
 
 draftLog(console);
 
-// These are the three items on the log.
-// Every new log will be an update on these.
-const matchTitle = console.draft(
-  chalk.yellowBright("\nWelcome to the Tennis Simulator!")
-);
-export const matchScore = console.draft("\n\n\n");
-const matchEvent = console.draft(chalk.greenBright("\n\n"));
+// We only initialize the logs once the match is about to start.
+// Before that we only use the log from inquirer.
+export let matchTitle: (arg: string) => void;
+export const initializeMatchTitle = () => {
+  matchTitle = console.draft(
+    chalk.yellowBright("\nToday's game is about to start!")
+  );
+};
+
+export let matchScore: (arg: string) => void;
+export const initializeMatchScore = () => {
+  matchScore = console.draft("\n\n\n");
+};
+
+export let matchEvent: (arg: string) => void;
+export const initializeMatchEvent = () => {
+  matchEvent = console.draft(chalk.greenBright("\n\n"));
+};
 
 const FILL_LOGS = " ".repeat(70);
 
@@ -29,8 +40,7 @@ export const logSetWon = (winner: Player) =>
 
 export const logPlayers = ({ p1, p2 }: Match) => {
   const [playerOne, playerTwo] = [p1, p2].map(
-    ({ firstName, lastName, ranking }) =>
-      `${firstName} ${lastName} (${ranking})`
+    ({ fullName, ranking }) => `${fullName} (${ranking})`
   );
   matchTitle(
     chalk.bold.greenBright(`\nMatch between ${playerOne} and ${playerTwo}.`)
@@ -43,11 +53,7 @@ export const logMatchFinished = () =>
   matchTitle(chalk.greenBright("\nMATCH FINISHED"));
 
 export const logMatchWon = (winner: Player) =>
-  matchEvent(
-    chalk.bold.greenBright(
-      `🏆 ${winner?.firstName} ${winner?.lastName} wins!\n`
-    )
-  );
+  matchEvent(chalk.bold.greenBright(`🏆 ${winner?.fullName} wins!\n`));
 
 export const logDeuce = () =>
   matchEvent(chalk.bold.black.bgYellowBright(` DEUCE \n`));

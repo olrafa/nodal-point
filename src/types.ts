@@ -2,7 +2,7 @@
  * A player outside of a match
  */
 export type Player = {
-  firstName: string;
+  fullName: string;
   lastName: string;
   ranking: number;
 };

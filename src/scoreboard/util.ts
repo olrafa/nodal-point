@@ -16,9 +16,7 @@ export const createScorelines = ({ p1, p2, ongoing, serving }: Match) => {
 };
 
 const isPlayerServing = (player: Player, ongoing: boolean, serving: Player) =>
-  ongoing &&
-  serving.firstName === player.firstName &&
-  serving.lastName === player.lastName;
+  ongoing && serving.fullName === player.fullName;
 
 const createScoreLine = (
   player: PlayerScore,
@@ -59,20 +57,25 @@ export const trimScores = (scores: ScoreLine[], match: Match): ScoreLine[] => {
 
     // Also just show scores for completed sets after set is completed (duh)
     if (set === 0 || set === 1) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { S1, S2, S3, ...info } = score;
       return info;
     }
     if (set === 2 && ongoing) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { S2, S3, ...info } = score;
       return info;
     }
     if (set === 3 && ongoing) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { S3, ...info } = score;
       return info;
     }
     if (!ongoing) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { games, points, ...info } = score;
       if (set !== 3) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { S3, ...finalScore } = info;
         return finalScore;
       }
