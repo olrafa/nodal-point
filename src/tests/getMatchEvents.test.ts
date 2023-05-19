@@ -5,8 +5,9 @@ import {
   SET_POINT,
 } from "../game/constants";
 import getMatchEvents from "../game/getMatchEvents";
-import { getRandomPlayers } from "../game/util";
 import { PlayerScore } from "../types";
+
+import getRandomPlayers from "./getRandomPlayers";
 
 const players = getRandomPlayers();
 

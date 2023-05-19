@@ -1,5 +1,6 @@
 import createMatch from "./game/createMatch";
 import playMatch from "./game/playMatch";
+import playTournament from "./game/playTournament";
 import {
   initializeMatchEvent,
   initializeMatchScore,
@@ -7,13 +8,25 @@ import {
   logMatchWon,
   logPlayers,
 } from "./scoreboard/logs";
+import { WTA_PLAYERS } from "./tests/playersData";
 import getUserInputs from "./inputs";
 
-// Entry point of the app. Pick two random players, create a match and play.
-const startMatch = async () => {
-  const [firstPlayer, secondPlayer] = await getUserInputs();
+// Entry point of the app. Let users select players, then play tournament.
+const startApp = async () => {
+  const players = await getUserInputs();
+  initializeMatchTitle();
+  initializeMatchScore();
+  initializeMatchEvent();
 
-  const match = createMatch(firstPlayer, secondPlayer);
+  playTournament(players).then((winner) => logMatchWon(winner));
+};
+
+startApp();
+
+/* const startMatch = async () => {
+  const players = await getUserInputs();
+
+  const match = createMatch(players);
 
   initializeMatchTitle();
   initializeMatchScore();
@@ -26,4 +39,4 @@ const startMatch = async () => {
   );
 };
 
-startMatch();
+startMatch(); */

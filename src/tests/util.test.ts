@@ -1,12 +1,13 @@
 import { BREAK_POINT } from "../game/constants";
 import createMatch from "../game/createMatch";
-import { getRandomPlayers } from "../game/util";
 import { createScorelines, trimScores } from "../scoreboard/util";
 import { Match } from "../types";
 
+import getRandomPlayers from "./getRandomPlayers";
+
 describe("Test the scoreboards", () => {
   const [player1, player2] = getRandomPlayers();
-  const match = createMatch(player1, player2);
+  const match = createMatch([player1, player2]);
 
   const p1Scoreline = {
     name: `${player1.lastName} (${player1.ranking})`,

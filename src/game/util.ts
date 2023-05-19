@@ -1,13 +1,5 @@
-import { WTA_PLAYERS } from "../tests/playersData";
-import { Match, Player, PlayerScore } from "../types";
+import { Match, Player, PlayerScore, TournamentPlayers } from "../types";
 
-/**
- * Create a game between two random players;
- */
-export const getRandomPlayers = (currentPlayers?: Player[]) => {
-  const players = currentPlayers || WTA_PLAYERS; // fallback to hardcoded WTA rankings.
-  return players.sort(() => 0.5 - Math.random()).slice(0, 2);
-};
 /**
  * Select a random player to start serving, then just flip the server.
  */
@@ -26,3 +18,33 @@ const selectServer = (match: Match): PlayerScore => {
 
 const switchServe = (match: Match) =>
   match.serving === match.p1 ? match.p2 : match.p1;
+
+/**
+ * When creating the first round of a tournament,
+ * put first in ranking against last, second against second last and so on.
+ * Made with help from ChatGPT.
+ * @param players
+ */
+export const generatePlayerPairs = (
+  players: TournamentPlayers
+): [Player, Player][] =>
+  players.reduce(
+    (pairs: [Player, Player][], currentItem: Player, currentIndex: number) => {
+      // Calculate the index of the last item of the current pair
+      const lastIndexOfPair = players.length - 1 - currentIndex;
+      // Check if the current pair is complete
+      const isPairComplete = lastIndexOfPair > currentIndex;
+      // If the current pair is complete, add it to the pairs array
+      if (isPairComplete) {
+        // Get the first item of the current pair and convert it to a string
+        const firstItemOfPair = currentItem;
+        // Get the last item of the current pair and convert it to a string
+        const lastItemOfPair = players[lastIndexOfPair];
+        // Add the pair to the pairs array
+        pairs.push([firstItemOfPair, lastItemOfPair]);
+      }
+      // Return the pairs array for the next iteration of reduce()
+      return pairs;
+    },
+    []
+  );

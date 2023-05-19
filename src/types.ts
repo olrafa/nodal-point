@@ -49,3 +49,7 @@ export type ScoreLine = SetScores & {
   points?: number | string;
   event?: string;
 };
+
+export type TournamentPlayers =
+  | [Player, Player]
+  | [Player, Player, Player, Player];
