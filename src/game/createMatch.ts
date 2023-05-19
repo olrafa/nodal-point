@@ -8,7 +8,8 @@ import { MAX_ADVANTAGE, MIN_ADVANTAGE, SERVING_ADVANTAGE } from "./constants";
  * @param playerTwo
  * @returns
  */
-const createMatch = (playerOne: Player, playerTwo: Player): Match => {
+const createMatch = (players: [Player, Player]): Match => {
+  const [playerOne, playerTwo] = players;
   const player1 = initializePlayer(playerOne, playerTwo);
   const player2 = initializePlayer(playerTwo, playerOne);
 

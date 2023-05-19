@@ -2,14 +2,18 @@ import inquirer from "inquirer";
 
 import getRankedPlayers from "../scraper";
 import { MAX_PLAYERS, ORGS } from "../scraper/constants";
-import { Player } from "../types";
+import { Player, TournamentPlayers } from "../types";
 
 const M = MAX_PLAYERS;
 
-const getUserInputs = async (): Promise<Player[]> => {
+const getUserInputs = async (): Promise<TournamentPlayers> => {
   const organization = await getOrganization();
+  const numPlayers = await getNumberOfPlayers();
   const availablePlayers = await getRankedPlayers(organization);
-  return await getPlayersChoice(availablePlayers);
+  const selectedPlayers = await getPlayersChoice(availablePlayers, numPlayers);
+  return availablePlayers.filter(({ fullName }) =>
+    selectedPlayers.includes(fullName)
+  ) as TournamentPlayers;
 };
 
 const getOrganization = async (): Promise<"WTA" | "ATP"> =>
@@ -26,22 +30,43 @@ const getOrganization = async (): Promise<"WTA" | "ATP"> =>
       ({ organization }) => ORGS.find((org) => org === organization) || ORGS[0]
     );
 
-const getPlayersChoice = async (players: Player[]): Promise<Player[]> =>
+const tournamentAnswers = [
+  { value: 2, name: "Single match" },
+  { value: 4, name: "Tournament with 4 players" },
+];
+
+const getNumberOfPlayers = async (): Promise<number> =>
+  await inquirer
+    .prompt({
+      type: "list",
+      name: "playerCount",
+      message:
+        "Would you like to play a single match or a four-player tournament?",
+      choices: tournamentAnswers,
+      default: tournamentAnswers[0],
+    })
+    .then(({ playerCount }) => playerCount);
+
+const getPlayersChoice = async (
+  players: Player[],
+  numPlayers: number
+): Promise<string[]> =>
   await inquirer
     .prompt({
       type: "checkbox",
       name: "selectedPlayers",
-      message: `These are the top ${M} ranked players. Select two of them for the match`,
-      choices: players.map(({ fullName }) => fullName),
+      message: `These are the top ${M} ranked players. Select ${numPlayers} of them.`,
+      choices: players.map(({ fullName }) => ({
+        name: fullName,
+        value: fullName,
+      })),
       validate(answer) {
-        if (answer.length !== 2) {
-          return "You must choose two players.";
+        if (answer.length !== numPlayers) {
+          return `You must choose ${numPlayers} players.`;
         }
         return true;
       },
     })
-    .then(({ selectedPlayers }) =>
-      players.filter(({ fullName }) => selectedPlayers.includes(fullName))
-    );
+    .then(({ selectedPlayers }) => selectedPlayers);
 
 export default getUserInputs;
