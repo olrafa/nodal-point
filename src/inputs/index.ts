@@ -55,7 +55,7 @@ const getPlayersChoice = async (
     .prompt({
       type: "checkbox",
       name: "selectedPlayers",
-      message: `These are the top ${M} ranked players. Select ${numPlayers} of them for the match`,
+      message: `These are the top ${M} ranked players. Select ${numPlayers} of them.`,
       choices: players.map(({ fullName }) => ({
         name: fullName,
         value: fullName,

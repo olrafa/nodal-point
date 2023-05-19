@@ -1,10 +1,13 @@
 import {
   clearEvent,
+  clearScoreboard,
   clearTitle,
   logDeuce,
   logGameWon,
   logMatchFinished,
   logMatchInPlay,
+  logMatchWon,
+  logPlayers,
   logSetWon,
 } from "../scoreboard/logs";
 import scoreboard from "../scoreboard/scoreboard";
@@ -29,10 +32,10 @@ import { updateService } from "./util";
  */
 const playMatch = (match: Match): Promise<Player> =>
   new Promise((resolve) => {
+    logPlayers(match);
+    clearScoreboard();
     const { p1, p2 } = match;
     match.ongoing = true;
-    clearTitle();
-    logMatchInPlay();
 
     // Increase set number, start a new game.
     const playSet = () => {
@@ -107,10 +110,15 @@ const playMatch = (match: Match): Promise<Player> =>
       logMatchFinished();
       scoreboard(match);
       match.winner = getMatchWinner(p1, p2);
-      match.winner && resolve(match.winner);
+      match.winner && logMatchWon(match.winner);
+      setTimeout(() => match.winner && resolve(match.winner), 3000);
     };
 
-    playSet();
+    setTimeout(() => {
+      clearTitle();
+      logMatchInPlay();
+      playSet();
+    }, 3000);
   });
 
 /**
