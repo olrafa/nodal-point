@@ -52,27 +52,15 @@ export type ScoreLine = SetScores & {
 
 export type PlayerCount = 2 | 4 | 8 | 16;
 
+type TwoPlayers = [Player, Player];
+type FourPlayers = [...TwoPlayers, ...TwoPlayers];
+type EightPlayers = [...FourPlayers, ...FourPlayers];
+type SixteenPlayers = [...EightPlayers, ...EightPlayers];
+
 export type TournamentPlayers =
-  | [Player, Player] // Final
-  | [Player, Player, Player, Player] // Semifinal
-  | [Player, Player, Player, Player, Player, Player, Player, Player] // QF
-  | [
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player,
-      Player
-    ]; // R16
+  | TwoPlayers // Final
+  | FourPlayers // Semifinal
+  | EightPlayers // QF
+  | SixteenPlayers; // R16
 
 export type PlayerSelection = "top" | "random" | "manual";

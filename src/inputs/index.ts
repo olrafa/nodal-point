@@ -90,6 +90,7 @@ const getPlayers = async (
         .sort(() => 0.5 - Math.random())
         .slice(0, count)
         .sort((a, b) => (a.ranking > b.ranking ? 1 : -1));
+    case "manual":
     default:
       return await getPlayersChoice(players, count);
   }
