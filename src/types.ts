@@ -50,6 +50,29 @@ export type ScoreLine = SetScores & {
   event?: string;
 };
 
+export type PlayerCount = 2 | 4 | 8 | 16;
+
 export type TournamentPlayers =
-  | [Player, Player]
-  | [Player, Player, Player, Player];
+  | [Player, Player] // Final
+  | [Player, Player, Player, Player] // Semifinal
+  | [Player, Player, Player, Player, Player, Player, Player, Player] // QF
+  | [
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player,
+      Player
+    ]; // R16
+
+export type PlayerSelection = "top" | "random" | "manual";

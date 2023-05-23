@@ -57,3 +57,10 @@ export const logMatchWon = (winner: Player) =>
 
 export const logDeuce = () =>
   matchEvent(chalk.bold.black.bgYellowBright(` DEUCE \n`));
+
+export const listPlayers = (players: Player[]) => {
+  const playerList = players
+    .map(({ fullName, ranking }) => `${fullName} (${ranking})`)
+    .join("\n");
+  console.log(chalk.cyanBright(playerList));
+};

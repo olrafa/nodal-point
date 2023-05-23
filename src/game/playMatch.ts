@@ -34,6 +34,7 @@ const playMatch = (match: Match): Promise<Player> =>
   new Promise((resolve) => {
     logPlayers(match);
     clearScoreboard();
+    clearEvent();
     const { p1, p2 } = match;
     match.ongoing = true;
 
