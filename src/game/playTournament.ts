@@ -5,11 +5,11 @@ import playMatch from "./playMatch";
 import { generatePlayerPairs } from "./util";
 
 const playTournament = async (players: TournamentPlayers): Promise<Player> => {
-  const firstGroups = generatePlayerPairs(players);
-  const winners = await playRound(firstGroups);
+  const groups = generatePlayerPairs(players);
+  const winners = await playRound(groups);
   return winners.length === 1
     ? winners[0]
-    : playTournament(winners as [Player, Player]);
+    : playTournament(winners as TournamentPlayers);
 };
 
 const playRound = async (groups: [Player, Player][]): Promise<Player[]> => {
