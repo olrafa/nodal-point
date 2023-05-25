@@ -1,4 +1,4 @@
-import { Player, PlayerScore } from "../types";
+import { PlayerScore } from "../types";
 
 import {
   MAX_GAMES_FOR_SET,
