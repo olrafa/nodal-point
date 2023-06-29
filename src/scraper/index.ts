@@ -73,12 +73,13 @@ const getAtpPlayers = async () => {
   return createPlayersArray(playerRows);
 };
 
-// Still need a better way to construct ATP last names
+// Still need a better way to construct ATP names
 const createPlayersArray = (names: string[]): Player[] =>
   names
     .map((name, i) => {
-      const nameDecompose = name.split(" ");
-      const [, lastName] = nameDecompose;
+      // Slice is to also catch when last name is composed of more than one word.
+      // Still potentially problematic for double first names.
+      const lastName = name.split(" ").slice(1).join(" ");
       return { fullName: name, lastName, ranking: i + 1 };
     })
     .slice(0, MAX_PLAYERS);
