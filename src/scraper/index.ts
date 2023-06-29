@@ -22,7 +22,6 @@ const getRankedPlayers = async (org: Org) => {
 
 /**
  * Retrieve names and rankings from the WTA website.
- * @returns
  */
 const getWtaPlayers = async () => {
   const browser = await puppeteer.launch({ headless: "new" });
@@ -56,7 +55,6 @@ const getWtaPlayers = async () => {
 
 /**
  * Retrieves names and ranking from the ATP website.
- * @returns
  */
 const getAtpPlayers = async () => {
   const browser = await puppeteer.launch({ headless: "new" });
